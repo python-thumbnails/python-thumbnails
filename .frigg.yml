@@ -1,0 +1,10 @@
+tasks:
+ - tox -e py34
+ - tox -e py27
+ - flake8
+ - isort -rc -c thumbnails tests
+ - coverage combine && coverage report && coverage xml
+
+coverage:
+  path: coverage.xml
+  parser: python
