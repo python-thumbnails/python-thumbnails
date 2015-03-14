@@ -7,8 +7,11 @@ from thumbnails.images import Thumbnail
 class ThumbnailTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.instance = Thumbnail()
+        self.instance = Thumbnail('name')
         self.instance.size = 200, 400
+
+    def test_name(self):
+        self.assertEqual(self.instance.name, 'name')
 
     def test_width(self):
         self.assertEqual(self.instance.width, 200)
