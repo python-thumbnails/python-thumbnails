@@ -34,6 +34,7 @@ class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.engine.create(self.filename, '200x300', None)
 
+
 class DummyEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = DummmyEngine
 

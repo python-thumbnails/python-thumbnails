@@ -4,6 +4,19 @@ import hashlib
 from thumbnails.engines import get_current_engine
 from thumbnails.images import Thumbnail
 
+CROP_ALIASES = {
+    'x': {
+        'left': 0,
+        'center': 50,
+        'right': 100
+    },
+    'y': {
+        'top': 0,
+        'center': 50,
+        'bottom': 100
+    }
+}
+
 
 class ThumbnailBackend(object):
     def get_thumbnail(self, original, size, crop=None, options=None):
@@ -59,8 +72,34 @@ class ThumbnailBackend(object):
         return int(size), None
 
     @staticmethod
-    def parse_crop(crop):
-        return 0, 0
+    def parse_crop(crop, original_size):
+        crop = crop.split(' ')
+        if len(crop) == 1:
+            crop = crop[0]
+            x_crop = 50
+            y_crop = 50
+            if crop in CROP_ALIASES['x']:
+                x_crop = CROP_ALIASES['x'][crop]
+            elif crop in CROP_ALIASES['y']:
+                y_crop = CROP_ALIASES['y'][crop]
+        else:
+            if crop[0] in CROP_ALIASES['x']:
+                x_crop = CROP_ALIASES['x'][crop[0]]
+            else:
+                x_crop = float(crop[0])
+
+            if crop[0] in CROP_ALIASES['x']:
+                y_crop = CROP_ALIASES['y'][crop[1]]
+            else:
+                y_crop = float(crop[1])
+
+        x_offset = ThumbnailBackend.calculate_offset(x_crop, original_size[0])
+        y_offset = ThumbnailBackend.calculate_offset(y_crop, original_size[1])
+        return x_offset, y_offset
+
+    @staticmethod
+    def calculate_offset(percent, range):
+        return int(max(0, min(percent * range / 100.0, range)))
 
     @staticmethod
     def generate_filename(original, size, crop, options):
