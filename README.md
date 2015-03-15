@@ -2,6 +2,13 @@
 
 Thumbnails for Django, Flask and other Python projects.
 
+## Work in progress
+This project is currently work in progress.
+
+- [ ] No framework
+- [ ] Django
+- [ ] Flask
+
 ## Install
 ```
 pip install -e https://github.com/relekang/python-thumbnails.git#egg=python-thumbnails
@@ -14,7 +21,6 @@ from thumbnails import get_thumbnail
 
 get_thumbnail('path/to/image.png', '300x300', 'center')
 ```
-
 
 ----------------------
 
