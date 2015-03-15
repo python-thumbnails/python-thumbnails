@@ -14,7 +14,11 @@ class ThumbnailBaseEngine(object):
     def scale(self, image, size, crop, options):
         upscale = options['scale_up']
         original_size = self.get_image_size(image)
-        factor = self._calculate_scaling_factor(original_size, size, options)
+
+        if original_size is NotImplemented:
+            raise NotImplementedError
+
+        factor = self._calculate_scaling_factor(original_size, size, crop is not None)
 
         if factor < 1 or upscale:
             width = int(original_size[0] * factor)
@@ -35,8 +39,11 @@ class ThumbnailBaseEngine(object):
     def engine_crop(self, image, size, crop, options):
         raise NotImplementedError
 
-    def _calculate_scaling_factor(self, original_size, size, options):
-        return NotImplemented
+    def _calculate_scaling_factor(self, original_size, size, has_crop):
+        factors = [original_size[0] / size[0], original_size[1] / size[1]]
+        if has_crop:
+            return max(factors)
+        return min(factors)
 
     def get_image_size(self, image):
         return NotImplemented
