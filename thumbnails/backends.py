@@ -15,7 +15,10 @@ class ThumbnailBackend(object):
         if cached:
             return cached
 
+        size = self.parse_size(size)
+        crop = self.parse_crop(crop)
         thumbnail = self.create_thumbnail_object(thumbnail_name)
+
         if not thumbnail.exists():
             try:
                 original_image = engine.get_image(original)
@@ -41,6 +44,23 @@ class ThumbnailBackend(object):
 
     def cache_set(self, thumbnail, original):
         return NotImplemented
+
+    @staticmethod
+    def parse_size(size):
+        """
+        Parses size string into a tuple
+        :param size: String on the form '100', 'x100 or '100x200'
+        :return: Tuple of two integers for width and height
+        """
+        if size.startswith('x'):
+            return None, int(size.replace('x', ''))
+        if 'x' in size:
+            return int(size.split('x')[0]), int(size.split('x')[1])
+        return int(size), None
+
+    @staticmethod
+    def parse_crop(crop):
+        return 0, 0
 
     @staticmethod
     def generate_filename(original, size, crop, options):

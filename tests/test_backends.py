@@ -19,3 +19,9 @@ class BackendTestCase(unittest.TestCase):
     def test_create_thumbnail_object(self):
         name = ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
         self.assertTrue(isinstance(ThumbnailBackend.create_thumbnail_object(name), Thumbnail))
+
+    def test_parse_size(self):
+        self.assertEqual(ThumbnailBackend.parse_size('100'), (100, None))
+        self.assertEqual(ThumbnailBackend.parse_size('100x200'), (100, 200))
+        self.assertEqual(ThumbnailBackend.parse_size('1x10'), (1, 10))
+        self.assertEqual(ThumbnailBackend.parse_size('x1000'), (None, 1000))

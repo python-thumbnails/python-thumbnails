@@ -21,7 +21,7 @@ class EngineTestMixin(object):
         os.remove(self.filename)
 
     def test_create(self):
-        thumbnail = self.engine.create(self.filename, '200x300')
+        thumbnail = self.engine.create(self.filename, '200x300', None)
         self.assertEqual(thumbnail.width, 200)
         self.assertEqual(thumbnail.height, 300)
         self.assertEqual(thumbnail.url, '')
@@ -32,20 +32,13 @@ class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
 
     def test_create(self):
         with self.assertRaises(NotImplementedError):
-            self.engine.create(self.filename, '200x300')
-
-    def test_parse_size(self):
-        self.assertEqual(self.engine.parse_size('100'), (100, None))
-        self.assertEqual(self.engine.parse_size('100x200'), (100, 200))
-        self.assertEqual(self.engine.parse_size('1x10'), (1, 10))
-        self.assertEqual(self.engine.parse_size('x1000'), (None, 1000))
-
+            self.engine.create(self.filename, '200x300', None)
 
 class DummyEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = DummmyEngine
 
     def test_create(self):
-        thumbnail = self.engine.create(self.filename, '200x300')
+        thumbnail = self.engine.create(self.filename, (200, 300), None)
         self.assertEqual(thumbnail.width, 200)
         self.assertEqual(thumbnail.height, 300)
         self.assertEqual(thumbnail.url, 'http://puppies.lkng.me/200x300')
