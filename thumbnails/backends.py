@@ -100,7 +100,7 @@ class ThumbnailBackend(object):
 
     @staticmethod
     def generate_filename(original, size, crop, options):
-        h = hashlib.sha1(':'.join([original, size, crop]).encode()).hexdigest()
+        h = hashlib.sha1(':'.join([original.file, str(size), str(crop)]).encode()).hexdigest()
         return [h[:3], h[3:]]
 
     @staticmethod
