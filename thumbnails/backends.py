@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import importlib
 
-from thumbnails.engines import get_current_engine
+from thumbnails.conf import settings
 from thumbnails.images import SourceFile, Thumbnail
 
 
-def cache_get(thumbnail_name):
-    return None
+def get_engine():
+    modules = settings.THUMBNAIL_ENGINE.split('.')
+    return getattr(importlib.import_module('.'.join(modules[:len(modules) - 1])), modules[-1])()
 
 
-def cache_set(thumbnail, original):
-    return NotImplemented
+def get_cache_backend():
+    modules = settings.THUMBNAIL_CACHE_BACKEND.split('.')
+    return getattr(importlib.import_module('.'.join(modules[:len(modules) - 1])), modules[-1])()
 
 
 def generate_filename(original, size, crop, options):
@@ -19,10 +22,11 @@ def generate_filename(original, size, crop, options):
 
 
 def get_thumbnail(original, size, crop=None, options=None):
-    engine = get_current_engine()
+    engine = get_engine()
+    cache = get_cache_backend()
     original = SourceFile(original)
     thumbnail_name = generate_filename(original, size, crop, options)
-    cached = cache_get(thumbnail_name)
+    cached = cache.get(thumbnail_name)
 
     if cached:
         return cached
@@ -30,5 +34,5 @@ def get_thumbnail(original, size, crop=None, options=None):
     thumbnail = Thumbnail(thumbnail_name)
     if not thumbnail.exists:
         thumbnail.image = engine.get_thumbnail(original, size, crop, options)
-    cache_set(thumbnail, original)
+    cache.set(thumbnail)
     return thumbnail
