@@ -34,6 +34,9 @@ class ThumbnailBaseEngine(object):
 
         return self.engine_crop(image, size, crop, options)
 
+    def cleanup(self, original):
+        pass
+
     def engine_load_image(self, original):
         raise NotImplementedError
 

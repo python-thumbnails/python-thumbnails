@@ -8,6 +8,7 @@ from thumbnails.conf import settings
 class Thumbnail(object):
 
     size = None, None
+    image = None
 
     def __init__(self, name):
         self.name = name
@@ -37,7 +38,7 @@ class Thumbnail(object):
         return self.ratio > 1
 
     def exists(self):
-        return NotImplemented
+        return False
 
 
 class SourceFile(object):

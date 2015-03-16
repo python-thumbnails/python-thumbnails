@@ -34,23 +34,19 @@ class ThumbnailBackend(object):
 
         if not thumbnail.exists():
             try:
-                original_image = engine.get_image(original)
-            except IOError:
-                return thumbnail
-
-            try:
-                self.create_thumbnail(original_image, size, crop, options, thumbnail)
+                self.create_thumbnail(original, size, crop, options, thumbnail)
             finally:
-                engine.cleanup(original_image)
+                engine.cleanup(original)
 
         self.cache_set(thumbnail, original)
         return thumbnail
 
     def create_thumbnail(self, original_image, size, crop, options, thumbnail):
-        return NotImplemented
+        thumbnail.image = get_current_engine().create(original_image, size, crop, options)
+        print(thumbnail.image)
 
     def cache_get(self, thumbnail_name):
-        return NotImplemented
+        return None
 
     def cache_set(self, thumbnail, original):
         return NotImplemented
@@ -70,6 +66,9 @@ class ThumbnailBackend(object):
 
     @staticmethod
     def parse_crop(crop, original_size):
+        if crop is None:
+            return None
+
         crop = crop.split(' ')
         if len(crop) == 1:
             crop = crop[0]
