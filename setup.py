@@ -21,6 +21,10 @@ setup(
     long_description=_read_long_description(),
     py_modules=['thumbnails'],
     license='MIT',
+    install_requires=[
+        'six',
+        'requests'
+    ],
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python",
