@@ -2,7 +2,7 @@
 import unittest
 
 from thumbnails.backends import ThumbnailBackend
-from thumbnails.images import Thumbnail, SourceFile
+from thumbnails.images import SourceFile, Thumbnail
 
 
 class BackendTestCase(unittest.TestCase):

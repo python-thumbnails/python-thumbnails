@@ -2,7 +2,7 @@
 import hashlib
 
 from thumbnails.engines import get_current_engine
-from thumbnails.images import Thumbnail, SourceFile
+from thumbnails.images import SourceFile, Thumbnail
 
 CROP_ALIASES = {
     'x': {

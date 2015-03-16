@@ -3,7 +3,6 @@ import os
 import unittest
 
 from PIL import Image
-from thumbnails.compat import BytesIO
 
 from thumbnails.engines.base import ThumbnailBaseEngine
 from thumbnails.engines.dummy import DummmyEngine

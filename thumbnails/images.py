@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+
 import requests
 
 from thumbnails.conf import settings

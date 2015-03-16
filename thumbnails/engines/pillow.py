@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from thumbnails.compat import BytesIO
+from thumbnails.engines.base import ThumbnailBaseEngine
 
 try:
     from PIL import Image
 except ImportError:
     import Image
-
-from thumbnails.engines.base import ThumbnailBaseEngine
 
 
 class PillowEngine(ThumbnailBaseEngine):
