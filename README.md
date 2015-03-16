@@ -6,6 +6,10 @@ Thumbnails for Django, Flask and other Python projects.
 This project is currently work in progress.
 
 - [ ] No framework
+  - [x] Scaling without cropping
+  - [ ] Cropping
+  - [ ] Saving
+  - [ ] Caching
 - [ ] Django
 - [ ] Flask
 
