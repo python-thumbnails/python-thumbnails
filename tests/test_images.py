@@ -8,11 +8,14 @@ from thumbnails.images import Thumbnail
 class ThumbnailTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.instance = Thumbnail('name')
+        self.instance = Thumbnail(['n', 'ame'])
         self.instance.size = 200, 400
 
     def test_name(self):
-        self.assertEqual(self.instance.name, 'name')
+        self.assertEqual(self.instance.name, 'n/ame')
+
+    def test_path(self):
+        self.assertTrue(self.instance.path.endswith('thumbnails/n/ame'))
 
     def test_width(self):
         self.assertEqual(self.instance.width, 200)
@@ -34,6 +37,7 @@ class ThumbnailTestCase(unittest.TestCase):
         self.assertTrue(self.instance.is_landscape)
 
     def test_exists(self):
+        self.instance = Thumbnail(['name'])
         self.assertFalse(self.instance.exists)
         with open(self.instance.path, 'w') as f:
             f.write('ii')

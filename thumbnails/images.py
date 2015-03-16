@@ -12,7 +12,7 @@ class Thumbnail(object):
     image = None
 
     def __init__(self, name):
-        self.name = name
+        self.name = '/'.join(name)
 
     @property
     def path(self):

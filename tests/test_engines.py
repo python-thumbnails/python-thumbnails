@@ -7,7 +7,7 @@ from PIL import Image
 from thumbnails.engines.base import ThumbnailBaseEngine
 from thumbnails.engines.dummy import DummmyEngine
 from thumbnails.engines.pillow import PillowEngine
-from thumbnails.images import SourceFile
+from thumbnails.images import SourceFile, Thumbnail
 
 
 class EngineTestMixin(object):
@@ -56,6 +56,28 @@ class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
     def test_create_from_url(self):
         with self.assertRaises(NotImplementedError):
             self.engine.create(self.url, (200, 300), None)
+
+    def test_create_thumbnail_object(self):
+        name = ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
+        self.assertTrue(isinstance(self.engine.create_thumbnail_object(name), Thumbnail))
+
+    def test_parse_size(self):
+        self.assertEqual(self.engine.parse_size('100'), (100, None))
+        self.assertEqual(self.engine.parse_size('100x200'), (100, 200))
+        self.assertEqual(self.engine.parse_size('1x10'), (1, 10))
+        self.assertEqual(self.engine.parse_size('x1000'), (None, 1000))
+
+    def test_parse_crop(self):
+        self.assertEqual(self.engine.parse_crop('center', (200, 200)), (100, 100))
+        self.assertEqual(self.engine.parse_crop('top', (200, 200)), (100, 0))
+        self.assertEqual(self.engine.parse_crop('bottom', (200, 200)), (100, 200))
+        self.assertEqual(self.engine.parse_crop('left', (200, 200)), (0, 100))
+        self.assertEqual(self.engine.parse_crop('right', (200, 200)), (200, 100))
+
+        self.assertEqual(self.engine.parse_crop('20 20', (200, 200)), (40, 40))
+        self.assertEqual(self.engine.parse_crop('20 80', (200, 200)), (40, 160))
+        self.assertEqual(self.engine.parse_crop('80 20', (200, 200)), (160, 40))
+        self.assertEqual(self.engine.parse_crop('25.55 25.55', (200, 200)), (51, 51))
 
 
 class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
