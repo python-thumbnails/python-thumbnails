@@ -39,6 +39,16 @@ class EngineTestMixin(object):
 class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = ThumbnailBaseEngine
 
+    def test__calculate_scaling_factor_without_crop(self):
+        calculate_scaling_factor = self.engine._calculate_scaling_factor
+        original_size = (400, 600)
+        self.assertEqual(calculate_scaling_factor(original_size, (400, 600), False), 1)
+        self.assertEqual(calculate_scaling_factor(original_size, (100, 600), False), 0.25)
+        self.assertEqual(calculate_scaling_factor(original_size, (400, 300), False), 0.5)
+        self.assertEqual(calculate_scaling_factor(original_size, (200, 300), False), 0.5)
+        self.assertEqual(calculate_scaling_factor(original_size, (200, None), False), 0.5)
+        self.assertEqual(calculate_scaling_factor(original_size, (None, 300), False), 0.5)
+
     def test_create_from_file(self):
         with self.assertRaises(NotImplementedError):
             self.engine.create(self.file, (200, 300), None)

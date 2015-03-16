@@ -50,7 +50,14 @@ class ThumbnailBaseEngine(object):
         raise NotImplementedError
 
     def _calculate_scaling_factor(self, original_size, size, has_crop):
-        factors = [float(size[0]) / original_size[0], float(size[1]) / original_size[1]]
+        factors = []
+        if size[0] is not None:
+            factors.append(float(size[0]) / original_size[0])
+        if size[1] is not None:
+            factors.append(float(size[1]) / original_size[1])
+
+        if len(factors) == 0:
+            return 1
         if has_crop:
             return max(factors)
         return min(factors)
