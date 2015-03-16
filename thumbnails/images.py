@@ -38,8 +38,9 @@ class Thumbnail(object):
     def is_landscape(self):
         return self.ratio > 1
 
+    @property
     def exists(self):
-        return False
+        return os.path.exists(self.path)
 
 
 class SourceFile(object):

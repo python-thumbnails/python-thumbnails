@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import unittest
 
 from thumbnails.images import Thumbnail
@@ -31,3 +32,10 @@ class ThumbnailTestCase(unittest.TestCase):
         self.assertFalse(self.instance.is_landscape)
         self.instance.size = 400, 200
         self.assertTrue(self.instance.is_landscape)
+
+    def test_exists(self):
+        self.assertFalse(self.instance.exists)
+        with open(self.instance.path, 'w') as f:
+            f.write('ii')
+        self.assertTrue(self.instance.exists)
+        os.remove(self.instance.path)
