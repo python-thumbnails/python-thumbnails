@@ -4,9 +4,10 @@ from thumbnails.conf import settings
 
 class ThumbnailBaseEngine(object):
 
-    def create(self, image, size, crop, options=None):
+    def create(self, original, size, crop, options=None):
         if options is None:
             options = self.get_default_options()
+        image = self.engine_load_image(original)
         image = self.scale(image, size, crop, options)
         image = self.crop(image, size, crop, options)
         return image
@@ -33,6 +34,12 @@ class ThumbnailBaseEngine(object):
 
         return self.engine_crop(image, size, crop, options)
 
+    def engine_load_image(self, original):
+        raise NotImplementedError
+
+    def engine_save_image(self, image, location):
+        raise NotImplementedError
+
     def engine_scale(self, image, width, height):
         raise NotImplementedError
 
@@ -40,7 +47,7 @@ class ThumbnailBaseEngine(object):
         raise NotImplementedError
 
     def _calculate_scaling_factor(self, original_size, size, has_crop):
-        factors = [original_size[0] / size[0], original_size[1] / size[1]]
+        factors = [float(size[0]) / original_size[0], float(size[1]) / original_size[1]]
         if has_crop:
             return max(factors)
         return min(factors)

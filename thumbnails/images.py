@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import requests
 
 from thumbnails.conf import settings
 
@@ -37,3 +38,14 @@ class Thumbnail(object):
 
     def exists(self):
         return NotImplemented
+
+
+class SourceFile(object):
+
+    def __init__(self, source_file):
+        self.file = source_file
+
+    def open(self):
+        if self.file.startswith('http'):
+            return requests.get(self.file, stream=True).raw
+        return open(self.file)

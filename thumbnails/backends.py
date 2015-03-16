@@ -2,7 +2,7 @@
 import hashlib
 
 from thumbnails.engines import get_current_engine
-from thumbnails.images import Thumbnail
+from thumbnails.images import Thumbnail, SourceFile
 
 CROP_ALIASES = {
     'x': {
@@ -21,7 +21,7 @@ CROP_ALIASES = {
 class ThumbnailBackend(object):
     def get_thumbnail(self, original, size, crop=None, options=None):
         engine = get_current_engine()
-        original = self.read_original(original)
+        original = SourceFile(original)
         thumbnail_name = self.generate_filename(original, size, crop, options)
         cached = self.cache_get(thumbnail_name)
 
@@ -29,7 +29,7 @@ class ThumbnailBackend(object):
             return cached
 
         size = self.parse_size(size)
-        crop = self.parse_crop(crop)
+        crop = self.parse_crop(crop, size)
         thumbnail = self.create_thumbnail_object(thumbnail_name)
 
         if not thumbnail.exists():
@@ -45,9 +45,6 @@ class ThumbnailBackend(object):
 
         self.cache_set(thumbnail, original)
         return thumbnail
-
-    def read_original(self, original):
-        return NotImplemented
 
     def create_thumbnail(self, original_image, size, crop, options, thumbnail):
         return NotImplemented
