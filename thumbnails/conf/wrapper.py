@@ -3,7 +3,7 @@
 import importlib
 import os
 
-from . import defaults
+from . import defaults, defaults_django
 
 
 class SettingsWrapper(object):
@@ -20,8 +20,9 @@ class SettingsWrapper(object):
 
         if os.environ.get('DJANGO_SETTINGS_MODULE'):
             try:
-                from django.conf import settings as django_settings  # noqa skip:isort
-                self.settings_modules.append(django_settings)
+                from django.conf import settings as settings_django  # noqa skip:isort
+                self.settings_modules.append(defaults_django)
+                self.settings_modules.append(settings_django)
             except ImportError:
                 pass
 
