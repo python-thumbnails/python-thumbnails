@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import unittest
-from tests.utils import has_no_django
 
+from tests.utils import has_no_django
 from thumbnails.conf.wrapper import SettingsWrapper
 
 
