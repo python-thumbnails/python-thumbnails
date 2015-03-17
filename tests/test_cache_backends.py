@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
-from thumbnails.cache_backends import SimpleCacheBackend, DjangoCacheBackend
+
+from tests.utils import has_no_django
+from thumbnails.cache_backends import DjangoCacheBackend, SimpleCacheBackend
 from thumbnails.images import Thumbnail
-
-
-def has_no_django():
-    try:
-        import django
-        return False
-    except ImportError:
-        return True
 
 
 class CacheBackendTestMixin(object):
