@@ -2,6 +2,7 @@
 import unittest
 
 from thumbnails.backends import generate_filename, get_thumbnail
+from thumbnails.conf import settings
 from thumbnails.images import SourceFile, Thumbnail
 
 from .compat import mock
@@ -18,7 +19,7 @@ class BackendTestCase(unittest.TestCase):
             ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
         )
 
-    @mock.patch('thumbnails.backends.cache_get', lambda x:  True)
+    @mock.patch('{}.get'.format(settings.THUMBNAIL_CACHE_BACKEND), lambda o, x:  True)
     def test_get_thumbnail_cached(self):
         self.assertTrue(get_thumbnail('', '200'))
 
