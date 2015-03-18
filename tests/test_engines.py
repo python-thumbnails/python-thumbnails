@@ -35,6 +35,11 @@ class EngineTestMixin(object):
         self.assertEqual(thumbnail.size[0], 200)
         self.assertEqual(thumbnail.size[1], 300)
 
+    def test_no_scale_no_crop(self):
+        thumbnail = self.engine.create(self.url, (400, 600), None)
+        self.assertEqual(thumbnail.size[0], 400)
+        self.assertEqual(thumbnail.size[1], 600)
+
 
 class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = ThumbnailBaseEngine
@@ -56,6 +61,10 @@ class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
     def test_create_from_url(self):
         with self.assertRaises(NotImplementedError):
             self.engine.create(self.url, (200, 300), None)
+
+    def test_no_scale_no_crop(self):
+        with self.assertRaises(NotImplementedError):
+            self.engine.create(self.url, (400, 600), None)
 
     def test_create_thumbnail_object(self):
         name = ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
