@@ -11,6 +11,7 @@ class Thumbnail(object):
 
     size = None, None
     image = None
+    _url = None
 
     def __init__(self, name):
         self.name = '/'.join(name)
@@ -21,6 +22,8 @@ class Thumbnail(object):
 
     @property
     def url(self):
+        if self._url:
+            return self._url
         return '/'.join([settings.THUMBNAIL_URL, '{}.{}'.format(self.name, self.extension)])
 
     @property
