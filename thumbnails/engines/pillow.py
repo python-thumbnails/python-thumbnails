@@ -13,11 +13,11 @@ class PillowEngine(ThumbnailBaseEngine):
     def engine_save_image(self, image, location):
         image.save(location)
 
-    def get_image_size(self, image):
+    def engine_image_size(self, image):
         return image.size
 
-    def get_image_info(self, image):
-        return image.info or {}
+    def engine_image_info(self, image):
+        return image.info
 
     def engine_scale(self, image, width, height):
         return image.resize((width, height), resample=Image.ANTIALIAS)

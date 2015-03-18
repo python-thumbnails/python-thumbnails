@@ -57,10 +57,22 @@ class ThumbnailBaseEngine(object):
     def cleanup(self, original):
         pass
 
+    def get_image_size(self, image):
+        return self.engine_image_size(image)
+
+    def get_image_info(self, image):
+        return self.engine_image_info(image) or {}
+
     def engine_load_image(self, original):
         raise NotImplementedError
 
     def engine_save_image(self, image, location):
+        raise NotImplementedError
+
+    def engine_image_size(self, image):
+        raise NotImplementedError
+
+    def engine_image_info(self, image):
         raise NotImplementedError
 
     def engine_scale(self, image, width, height):
@@ -81,9 +93,6 @@ class ThumbnailBaseEngine(object):
         if has_crop:
             return max(factors)
         return min(factors)
-
-    def get_image_size(self, image):
-        return NotImplemented
 
     def get_default_options(self):
         return {
