@@ -88,8 +88,6 @@ class ThumbnailBaseEngine(object):
         if size[1] is not None:
             factors.append(float(size[1]) / original_size[1])
 
-        if len(factors) == 0:
-            return 1
         if has_crop:
             return max(factors)
         return min(factors)
