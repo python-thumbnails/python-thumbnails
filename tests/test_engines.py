@@ -34,14 +34,28 @@ class EngineTestMixin(object):
         self.assertEqual(thumbnail.size[0], 200)
         self.assertEqual(thumbnail.size[1], 300)
 
+    def test_create_with_crop(self):
+        thumbnail = self.engine.create(self.url, (200, 200), 'center')
+        self.assertEqual(thumbnail.size[0], 200)
+        self.assertEqual(thumbnail.size[1], 200)
+
     def test_no_scale_no_crop(self):
         thumbnail = self.engine.create(self.url, (400, 600), None)
         self.assertEqual(thumbnail.size[0], 400)
         self.assertEqual(thumbnail.size[1], 600)
 
+    def test_save(self):
+        image = Image.new('L', (400, 600))
+        path = os.path.join(os.path.dirname(__file__), 'save_test.jpg')
+        self.engine.save_image(image, path)
+        self.assertTrue(os.path.exists(path))
+        os.remove(path)
 
-class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
-    ENGINE = ThumbnailBaseEngine
+
+class BaseEngineTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.engine = ThumbnailBaseEngine()
 
     def test__calculate_scaling_factor_without_crop(self):
         calculate_scaling_factor = self.engine._calculate_scaling_factor
@@ -52,18 +66,6 @@ class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
         self.assertEqual(calculate_scaling_factor(original_size, (200, 300), False), 0.5)
         self.assertEqual(calculate_scaling_factor(original_size, (200, None), False), 0.5)
         self.assertEqual(calculate_scaling_factor(original_size, (None, 300), False), 0.5)
-
-    def test_create_from_file(self):
-        with self.assertRaises(NotImplementedError):
-            self.engine.create(self.file, (200, 300), None)
-
-    def test_create_from_url(self):
-        with self.assertRaises(NotImplementedError):
-            self.engine.create(self.url, (200, 300), None)
-
-    def test_no_scale_no_crop(self):
-        with self.assertRaises(NotImplementedError):
-            self.engine.create(self.url, (400, 600), None)
 
     def test_create_thumbnail_object(self):
         name = ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
@@ -93,12 +95,13 @@ class BaseEngineTestCase(EngineTestMixin, unittest.TestCase):
         self.assertEqual(self.engine.calculate_offset(100, 1000, 200), 800)
 
 
-class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
-    ENGINE = PillowEngine
+class DummyEngineTestCase(unittest.TestCase):
 
-
-class DummyEngineTestCase(EngineTestMixin, unittest.TestCase):
-    ENGINE = DummmyEngine
+    def setUp(self):
+        self.engine = DummmyEngine()
+        self.filename = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
+        self.file = SourceFile(self.filename)
+        self.url = SourceFile('http://puppies.lkng.me/400x600/')
 
     def test_create_from_file(self):
         thumbnail = self.engine.create(self.file, (200, 300), None)
@@ -111,3 +114,7 @@ class DummyEngineTestCase(EngineTestMixin, unittest.TestCase):
         self.assertEqual(thumbnail.width, 200)
         self.assertEqual(thumbnail.height, 300)
         self.assertEqual(thumbnail.url, 'http://puppies.lkng.me/200x300')
+
+
+class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
+    ENGINE = PillowEngine
