@@ -2,6 +2,7 @@
 import os
 
 THUMBNAIL_PATH = os.path.join(os.getcwd(), 'thumbnails-cache')
+THUMBNAIL_URL = '/thumbnails/'
 THUMBNAIL_ENGINE = 'thumbnails.engines.PillowEngine'
 THUMBNAIL_CACHE_BACKEND = 'thumbnails.cache_backends.SimpleCacheBackend'
 

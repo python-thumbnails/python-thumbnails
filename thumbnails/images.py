@@ -20,6 +20,10 @@ class Thumbnail(object):
         return os.path.join(settings.THUMBNAIL_PATH, '{}.{}'.format(self.name, self.extension))
 
     @property
+    def url(self):
+        return '/'.join([settings.THUMBNAIL_URL, '{}.{}'.format(self.name, self.extension)])
+
+    @property
     def extension(self):
         return 'jpg'
 
