@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 import thumbnails
 
@@ -20,6 +20,7 @@ setup(
     description='Thumbnails for Django, Flask and other Python projects.',
     long_description=_read_long_description(),
     py_modules=['thumbnails'],
+    packages=find_packages(exclude='tests'),
     license='MIT',
     install_requires=[
         'six',
