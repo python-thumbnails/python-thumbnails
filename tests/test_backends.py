@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 import unittest
 
 from thumbnails.backends import generate_filename, get_thumbnail

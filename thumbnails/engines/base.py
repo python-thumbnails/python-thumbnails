@@ -148,7 +148,10 @@ class ThumbnailBaseEngine(object):
 
     @staticmethod
     def calculate_offset(percent, original_length, length):
-        return int(max(0, min(percent * original_length / 100.0, original_length - length / 2) - length / 2))
+        return int(
+            max(0,
+                min(percent * original_length / 100.0, original_length - length / 2) - length / 2)
+        )
 
     @staticmethod
     def create_thumbnail_object(name):
