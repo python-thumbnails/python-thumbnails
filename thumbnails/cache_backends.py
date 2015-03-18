@@ -9,10 +9,7 @@ class BaseCacheBackend(object):
         return self._get(thumbnail_name)
 
     def set(self, thumbnail):
-        thumbnail_name = thumbnail.name
-        if isinstance(thumbnail_name, list):
-            thumbnail_name = ''.join(thumbnail_name)
-        return self._set(thumbnail_name, thumbnail)
+        return self._set(thumbnail.name, thumbnail)
 
     def _get(self, thumbnail_name):
         raise NotImplementedError
