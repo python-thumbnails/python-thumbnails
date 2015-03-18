@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
+from PIL import Image
+
 from thumbnails.compat import BytesIO
 from thumbnails.engines.base import ThumbnailBaseEngine
-
-try:
-    from PIL import Image
-except ImportError:
-    import Image
 
 
 class PillowEngine(ThumbnailBaseEngine):
