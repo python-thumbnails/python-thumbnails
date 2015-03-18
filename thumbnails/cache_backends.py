@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from abc import abstractmethod
 
 
 class BaseCacheBackend(object):
@@ -15,13 +14,11 @@ class BaseCacheBackend(object):
             thumbnail_name = ''.join(thumbnail_name)
         return self._set(thumbnail_name, thumbnail)
 
-    @abstractmethod
     def _get(self, thumbnail_name):
-        pass
+        raise NotImplementedError
 
-    @abstractmethod
     def _set(self, thumbnail_name, thumbnail):
-        pass
+        raise NotImplementedError
 
 
 class SimpleCacheBackend(BaseCacheBackend):

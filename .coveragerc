@@ -1,0 +1,10 @@
+[report]
+show_missing = True
+exclude_lines =
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if settings.DEBUG:
+    if settings.DEBUG and*:
+    if settings.DEBUG or*:
+    return NotImplemented
+    raise NotImplementedError
