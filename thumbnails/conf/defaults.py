@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-THUMBNAIL_PATH = os.path.join(os.getcwd(), 'thumbnails')
+THUMBNAIL_PATH = os.path.join(os.getcwd(), 'thumbnails-cache')
 THUMBNAIL_ENGINE = 'thumbnails.engines.PillowEngine'
 THUMBNAIL_CACHE_BACKEND = 'thumbnails.cache_backends.SimpleCacheBackend'
 

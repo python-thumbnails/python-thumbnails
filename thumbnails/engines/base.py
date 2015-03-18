@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from thumbnails.conf import settings
 from thumbnails.images import Thumbnail
 
@@ -62,6 +63,12 @@ class ThumbnailBaseEngine(object):
 
     def get_image_info(self, image):
         return self.engine_image_info(image) or {}
+
+    def save_image(self, image, location):
+        directory = os.path.dirname(location)
+        if not os.path.exists(directory):
+            os.mkdir(directory)
+        self.engine_save_image(image, location)
 
     def engine_load_image(self, original):
         raise NotImplementedError

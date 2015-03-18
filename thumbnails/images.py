@@ -16,7 +16,11 @@ class Thumbnail(object):
 
     @property
     def path(self):
-        return os.path.join(settings.THUMBNAIL_PATH, self.name)
+        return os.path.join(settings.THUMBNAIL_PATH, '{}.{}'.format(self.name, self.extension))
+
+    @property
+    def extension(self):
+        return 'jpg'
 
     @property
     def width(self):

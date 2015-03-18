@@ -34,5 +34,6 @@ def get_thumbnail(original, size, crop=None, options=None):
     thumbnail = Thumbnail(thumbnail_name)
     if not thumbnail.exists:
         thumbnail.image = engine.get_thumbnail(original, size, crop, options)
+        engine.save_image(thumbnail.image, thumbnail.path)
     cache.set(thumbnail)
     return thumbnail

@@ -26,6 +26,9 @@ class SettingsWrapper(object):
             except ImportError:
                 pass
 
+        if not os.path.exists(self.THUMBNAIL_PATH):
+            os.mkdir(self.THUMBNAIL_PATH)
+
     def __getattr__(self, key):
         value = self.defaults.get(key, None)
 
