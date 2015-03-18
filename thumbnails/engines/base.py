@@ -30,7 +30,7 @@ class ThumbnailBaseEngine(object):
             options = self.get_default_options()
         image = self.engine_load_image(original)
         image = self.scale(image, size, crop, options)
-        crop = self.parse_crop(crop, self.get_image_size(image))
+        crop = self.parse_crop(crop, self.get_image_size(image), size)
         image = self.crop(image, size, crop, options)
         return image
 
@@ -110,7 +110,7 @@ class ThumbnailBaseEngine(object):
             return int(size.split('x')[0]), int(size.split('x')[1])
         return int(size), None
 
-    def parse_crop(self, crop, original_size):
+    def parse_crop(self, crop, original_size, size):
         if crop is None:
             return None
 
@@ -134,13 +134,13 @@ class ThumbnailBaseEngine(object):
             else:
                 y_crop = float(crop[1])
 
-        x_offset = self.calculate_offset(x_crop, original_size[0])
-        y_offset = self.calculate_offset(y_crop, original_size[1])
-        return x_offset, y_offset
+        x_offset = self.calculate_offset(x_crop, original_size[0], size[0])
+        y_offset = self.calculate_offset(y_crop, original_size[1], size[1])
+        return int(x_offset), int(y_offset)
 
     @staticmethod
-    def calculate_offset(percent, range):
-        return int(max(0, min(percent * range / 100.0, range)))
+    def calculate_offset(percent, original_length, length):
+        return int(max(0, min(percent * original_length / 100.0, original_length - length / 2) - length / 2))
 
     @staticmethod
     def create_thumbnail_object(name):
