@@ -8,8 +8,8 @@ This project is currently work in progress.
 - [ ] No framework
   - [x] Scaling without cropping
   - [ ] Cropping
-  - [ ] Saving
-  - [ ] Caching
+  - [x] Saving
+  - [x] Caching
 - [ ] Django
 - [ ] Flask
 
