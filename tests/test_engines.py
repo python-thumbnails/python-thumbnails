@@ -24,7 +24,6 @@ class EngineTestMixin(object):
     def tearDown(self):
         os.remove(self.filename)
 
-    @unittest.skip('Awaiting')
     def test_create_from_file(self):
         thumbnail = self.engine.create(self.file, (200, 300), None)
         self.assertEqual(thumbnail.size[0], 200)

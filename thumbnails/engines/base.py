@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+
 from thumbnails.conf import settings
 from thumbnails.images import Thumbnail
 

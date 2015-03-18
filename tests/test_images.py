@@ -15,7 +15,7 @@ class ThumbnailTestCase(unittest.TestCase):
         self.assertEqual(self.instance.name, 'n/ame')
 
     def test_path(self):
-        self.assertTrue(self.instance.path.endswith('thumbnails/n/ame.jpg'))
+        self.assertTrue(self.instance.path.endswith('thumbnails-cache/n/ame.jpg'))
 
     def test_width(self):
         self.assertEqual(self.instance.width, 200)

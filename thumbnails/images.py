@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import codecs
 import os
 
 import requests
@@ -55,4 +56,4 @@ class SourceFile(object):
     def open(self):
         if self.file.startswith('http'):
             return requests.get(self.file, stream=True).raw
-        return open(self.file)
+        return codecs.open(self.file)
