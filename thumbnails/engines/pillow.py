@@ -16,9 +16,6 @@ class PillowEngine(ThumbnailBaseEngine):
     def engine_image_size(self, image):
         return image.size
 
-    def engine_image_info(self, image):
-        return image.info
-
     def engine_scale(self, image, width, height):
         return image.resize((width, height), resample=Image.ANTIALIAS)
 

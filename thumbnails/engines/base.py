@@ -62,9 +62,6 @@ class ThumbnailBaseEngine(object):
     def get_image_size(self, image):
         return self.engine_image_size(image)
 
-    def get_image_info(self, image):
-        return self.engine_image_info(image) or {}
-
     def save_image(self, image, location):
         directory = os.path.dirname(location)
         if not os.path.exists(directory):
@@ -78,9 +75,6 @@ class ThumbnailBaseEngine(object):
         raise NotImplementedError
 
     def engine_image_size(self, image):
-        raise NotImplementedError
-
-    def engine_image_info(self, image):
         raise NotImplementedError
 
     def engine_scale(self, image, width, height):
