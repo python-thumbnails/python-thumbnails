@@ -1,23 +1,14 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from thumbnails.backends import generate_filename, get_thumbnail
+from thumbnails import get_thumbnail
 from thumbnails.conf import settings
-from thumbnails.images import SourceFile, Thumbnail
+from thumbnails.images import Thumbnail
 
 from .compat import mock
 
 
-class BackendTestCase(unittest.TestCase):
-    def test_generate_filename(self):
-        self.assertEqual(
-            generate_filename(SourceFile('url'), '100x200', 'center', None),
-            ['0af', 'a360db703bd5c2fe7c83843ce7738a0a6d37b']
-        )
-        self.assertEqual(
-            generate_filename(SourceFile('url'), '200x200', 'center', None),
-            ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
-        )
+class GetThumbnailTestCase(unittest.TestCase):
 
     @mock.patch('{}.get'.format(settings.THUMBNAIL_CACHE_BACKEND), lambda o, x:  True)
     def test_get_thumbnail_cached(self):
