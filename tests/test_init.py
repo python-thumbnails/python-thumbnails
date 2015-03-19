@@ -22,4 +22,4 @@ class GetThumbnailTestCase(unittest.TestCase):
         self.assertTrue(mock_engine_get_thumbnail.called)
         self.assertTrue(mock_cache_set.called)
         self.assertTrue(mock_save_image.called)
-        self.assertTrue(isinstance(thumbnail, Thumbnail))
+        self.assertIsInstance(thumbnail, Thumbnail)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import importlib
+
 from thumbnails.conf import settings
 
 

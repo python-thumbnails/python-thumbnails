@@ -69,7 +69,7 @@ class BaseEngineTestCase(unittest.TestCase):
 
     def test_create_thumbnail_object(self):
         name = ['851', '521c21fe9709802e9d4eb20a5fe84c18cd3ad']
-        self.assertTrue(isinstance(self.engine.create_thumbnail_object(name), Thumbnail))
+        self.assertIsInstance(self.engine.create_thumbnail_object(name), Thumbnail)
 
     def test_parse_size(self):
         self.assertEqual(self.engine.parse_size('100'), (100, None))

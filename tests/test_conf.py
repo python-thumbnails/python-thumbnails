@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from copy import deepcopy
 import os
 import unittest
+from copy import deepcopy
+
 import mock
 
 from tests.utils import has_no_django
