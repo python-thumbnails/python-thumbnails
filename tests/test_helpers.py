@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
-from tests.utils import has_django
 
-from thumbnails.cache_backends import SimpleCacheBackend, DjangoCacheBackend
+from tests.utils import has_django
+from thumbnails.cache_backends import DjangoCacheBackend, SimpleCacheBackend
 from thumbnails.engines import PillowEngine
 from thumbnails.helpers import generate_filename, get_cache_backend, get_engine
 from thumbnails.images import SourceFile
