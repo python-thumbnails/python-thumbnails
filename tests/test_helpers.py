@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
+from tests.utils import has_django
 
-from thumbnails.cache_backends import SimpleCacheBackend
+from thumbnails.cache_backends import SimpleCacheBackend, DjangoCacheBackend
 from thumbnails.engines import PillowEngine
 from thumbnails.helpers import generate_filename, get_cache_backend, get_engine
 from thumbnails.images import SourceFile
@@ -23,4 +24,7 @@ class HelpersTestCase(unittest.TestCase):
         self.assertIsInstance(get_engine(), PillowEngine)
 
     def test_get_cache_backend(self):
-        self.assertIsInstance(get_cache_backend(), SimpleCacheBackend)
+        if has_django():
+            self.assertIsInstance(get_cache_backend(), DjangoCacheBackend)
+        else:
+            self.assertIsInstance(get_cache_backend(), SimpleCacheBackend)
