@@ -4,9 +4,17 @@ Quickstart
 Installation
 ------------
 
-..
+.. code-block:: bash
 
+    pip install pillow  # default image engine, not necessary if another engine is used
     pip install python-thumbnails
+
+Dependencies
+~~~~~~~~~~~~
+
+This project has configurable parts that depends on other modules. In order to
+use those the dependencies need to be installed, e.g. to use the ``PillowEngine``
+which is the default image engine one has to install pillow.
 
 Usage
 -----
