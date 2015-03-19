@@ -8,10 +8,9 @@ from . import defaults
 
 class SettingsWrapper(object):
 
-    defaults = {}
-    settings_modules = []
-
     def __init__(self):
+        self.defaults = {}
+        self.settings_modules = []
         self._load_from_module(defaults, self.defaults)
         if os.environ.get('THUMBNAILS_SETTINGS_MODULE'):
             self.settings_modules.append(
