@@ -10,8 +10,11 @@ class PillowEngine(ThumbnailBaseEngine):
     def engine_load_image(self, original):
         return Image.open(BytesIO(original.open().read()))
 
-    def engine_save_image(self, image, location):
-        image.save(location)
+    def engine_save_image(self, image, options, location):
+        pillow_options = {
+            'quality': options['quality'],
+        }
+        image.save(location, **pillow_options)
 
     def engine_image_size(self, image):
         return image.size

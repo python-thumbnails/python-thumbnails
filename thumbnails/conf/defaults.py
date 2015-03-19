@@ -7,6 +7,7 @@ THUMBNAIL_ENGINE = 'thumbnails.engines.PillowEngine'
 THUMBNAIL_CACHE_BACKEND = 'thumbnails.cache_backends.SimpleCacheBackend'
 
 THUMBNAIL_SCALE_UP = False
+THUMBNAIL_QUALITY = 90
 
 THUMBNAIL_DUMMY = False
 THUMBNAIL_DUMMY_URL = 'http://puppies.lkng.me/{}x{}'

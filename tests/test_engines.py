@@ -47,7 +47,7 @@ class EngineTestMixin(object):
     def test_save(self):
         image = Image.new('L', (400, 600))
         path = os.path.join(os.path.dirname(__file__), 'save_test.jpg')
-        self.engine.save_image(image, path)
+        self.engine.save_image(image, self.engine.default_options(), path)
         self.assertTrue(os.path.exists(path))
         os.remove(path)
 

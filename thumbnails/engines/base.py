@@ -28,8 +28,10 @@ class ThumbnailBaseEngine(object):
         return image
 
     def create(self, original, size, crop, options=None):
-        if options is None:
-            options = self.get_default_options()
+        _options = options
+        options = self.default_options()
+        if _options:
+            options.update(_options)
         image = self.engine_load_image(original)
         image = self.scale(image, size, crop, options)
         crop = self.parse_crop(crop, self.get_image_size(image), size)
@@ -62,16 +64,16 @@ class ThumbnailBaseEngine(object):
     def get_image_size(self, image):
         return self.engine_image_size(image)
 
-    def save_image(self, image, location):
+    def save_image(self, image, options, location):
         directory = os.path.dirname(location)
         if not os.path.exists(directory):
             os.mkdir(directory)
-        self.engine_save_image(image, location)
+        self.engine_save_image(image, options, location)
 
     def engine_load_image(self, original):
         raise NotImplementedError
 
-    def engine_save_image(self, image, location):
+    def engine_save_image(self, image, options, location):
         raise NotImplementedError
 
     def engine_image_size(self, image):
@@ -94,9 +96,10 @@ class ThumbnailBaseEngine(object):
             return max(factors)
         return min(factors)
 
-    def get_default_options(self):
+    def default_options(self):
         return {
-            'scale_up': settings.THUMBNAIL_SCALE_UP
+            'scale_up': settings.THUMBNAIL_SCALE_UP,
+            'quality': settings.THUMBNAIL_QUALITY
         }
 
     @staticmethod
