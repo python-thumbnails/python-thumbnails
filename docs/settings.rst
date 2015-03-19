@@ -37,6 +37,11 @@ Image options
       the original.
     | **Default:** ``False``
 
+.. attribute:: THUMBNAIL_QUALITY
+    :noindex:
+
+    | Quality sent to the engine. 
+    | **Default:** ``90``
 
 Dummy thumbnails
 ----------------
