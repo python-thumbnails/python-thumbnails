@@ -51,6 +51,9 @@ class EngineTestMixin(object):
         self.assertTrue(os.path.exists(path))
         os.remove(path)
 
+    def test_cleanup(self):
+        self.assertIsNone(self.engine.cleanup(self.file))
+
 
 class BaseEngineTestCase(unittest.TestCase):
 

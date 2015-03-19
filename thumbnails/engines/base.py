@@ -59,7 +59,11 @@ class ThumbnailBaseEngine(object):
         return self.engine_crop(image, size, crop, options)
 
     def cleanup(self, original):
-        pass
+        """
+        Cleanup after thumbnail creation.
+        :param original:
+        """
+        self.engine_cleanup(original)
 
     def get_image_size(self, image):
         return self.engine_image_size(image)
@@ -83,6 +87,9 @@ class ThumbnailBaseEngine(object):
         raise NotImplementedError
 
     def engine_crop(self, image, size, crop, options):
+        raise NotImplementedError
+
+    def engine_cleanup(self, original):
         raise NotImplementedError
 
     def _calculate_scaling_factor(self, original_size, size, has_crop):

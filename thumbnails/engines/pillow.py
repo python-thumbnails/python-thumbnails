@@ -26,3 +26,6 @@ class PillowEngine(ThumbnailBaseEngine):
         x, y = crop
         width, height = size
         return image.crop((x, y, x + width, y + height))
+
+    def engine_cleanup(self, original):
+        pass
