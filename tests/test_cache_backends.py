@@ -18,7 +18,6 @@ class CacheBackendTestMixin(object):
         thumbnail = Thumbnail(['n', 'ame'])
         self.backend.set(thumbnail)
         cached_thumbnail = self.backend.get(thumbnail.name)
-        print(cached_thumbnail)
         self.assertIsInstance(cached_thumbnail, Thumbnail)
         self.assertEqual(cached_thumbnail.name, thumbnail.name)
 
