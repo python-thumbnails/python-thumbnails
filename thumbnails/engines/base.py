@@ -74,24 +74,6 @@ class ThumbnailBaseEngine(object):
             os.mkdir(directory)
         self.engine_save_image(image, options, location)
 
-    def engine_load_image(self, original):
-        raise NotImplementedError
-
-    def engine_save_image(self, image, options, location):
-        raise NotImplementedError
-
-    def engine_image_size(self, image):
-        raise NotImplementedError
-
-    def engine_scale(self, image, width, height):
-        raise NotImplementedError
-
-    def engine_crop(self, image, size, crop, options):
-        raise NotImplementedError
-
-    def engine_cleanup(self, original):
-        raise NotImplementedError
-
     def _calculate_scaling_factor(self, original_size, size, has_crop):
         factors = []
         if size[0] is not None:
@@ -160,3 +142,21 @@ class ThumbnailBaseEngine(object):
     @staticmethod
     def create_thumbnail_object(name):
         return Thumbnail(name)
+
+    def engine_load_image(self, original):
+        raise NotImplementedError
+
+    def engine_save_image(self, image, options, location):
+        raise NotImplementedError
+
+    def engine_image_size(self, image):
+        raise NotImplementedError
+
+    def engine_scale(self, image, width, height):
+        raise NotImplementedError
+
+    def engine_crop(self, image, size, crop, options):
+        raise NotImplementedError
+
+    def engine_cleanup(self, original):
+        raise NotImplementedError
