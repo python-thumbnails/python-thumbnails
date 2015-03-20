@@ -6,6 +6,11 @@ from .base import ThumbnailBaseEngine
 
 
 class DummyEngine(ThumbnailBaseEngine):
+    """
+    A Engine that will use a placeholder service in order to show the Thumbnails. It uses
+    ``THUMBNAIL_DUMMY_URL`` to build the url of the thumbnail. More info can be found in the
+    dummy-mode section of the documentation.
+    """
 
     def create(self, original, size, crop, options=None):
         thumbnail = Thumbnail('dummy_{}x{}'.format(size[0], size[1]))

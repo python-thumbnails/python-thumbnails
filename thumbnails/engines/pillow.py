@@ -6,6 +6,9 @@ from thumbnails.engines.base import ThumbnailBaseEngine
 
 
 class PillowEngine(ThumbnailBaseEngine):
+    """
+    Thumbnail engine for Pillow
+    """
 
     def engine_load_image(self, original):
         return Image.open(BytesIO(original.open().read()))
