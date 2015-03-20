@@ -11,3 +11,12 @@ def has_django():
         return True
     except ImportError:
         return False
+
+
+def has_pillow():
+    try:
+        from PIL import Image
+        return True
+    except ImportError:
+        return False
+

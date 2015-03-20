@@ -3,6 +3,7 @@ import os
 import unittest
 
 from PIL import Image
+from tests.utils import has_pillow
 
 from thumbnails.engines.base import ThumbnailBaseEngine
 from thumbnails.engines.dummy import DummyEngine
@@ -119,5 +120,6 @@ class DummyEngineTestCase(unittest.TestCase):
         self.assertEqual(thumbnail.url, 'http://puppies.lkng.me/200x300')
 
 
+@unittest.skipIf(not has_pillow(), 'Pillow not installed')
 class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = PillowEngine
