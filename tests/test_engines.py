@@ -3,12 +3,13 @@ import os
 import unittest
 
 from PIL import Image
-from tests.utils import has_pillow
 
 from thumbnails.engines.base import ThumbnailBaseEngine
 from thumbnails.engines.dummy import DummyEngine
 from thumbnails.engines.pillow import PillowEngine
 from thumbnails.images import SourceFile, Thumbnail
+
+from .utils import has_pillow
 
 
 class EngineTestMixin(object):

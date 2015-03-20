@@ -3,10 +3,10 @@ import os
 import unittest
 from copy import deepcopy
 
-import mock
-
-from tests.utils import has_no_django
 from thumbnails.conf.wrapper import SettingsWrapper
+
+from .compat import mock
+from .utils import has_django
 
 
 class SettingsWrapperTestCase(unittest.TestCase):
@@ -26,7 +26,7 @@ class SettingsWrapperTestCase(unittest.TestCase):
         settings = SettingsWrapper()
         self.assertEqual(settings.THUMBNAIL_ENGINE, 'thumbnails.engines.PillowEngine')
 
-    @unittest.skipIf(has_no_django(), 'Django not installed')
+    @unittest.skipIf(not has_django(), 'Django not installed')
     def test_django_defaults(self):
         settings = SettingsWrapper()
         self.assertEqual(

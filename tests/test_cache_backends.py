@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from tests.utils import has_no_django
 from thumbnails.cache_backends import DjangoCacheBackend, SimpleCacheBackend
 from thumbnails.images import Thumbnail
+
+from .utils import has_django
 
 
 class CacheBackendTestMixin(object):
@@ -26,6 +27,6 @@ class SimpleCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
     BACKEND = SimpleCacheBackend
 
 
-@unittest.skipIf(has_no_django(), 'Django is not installed')
+@unittest.skipIf(not has_django(), 'Django is not installed')
 class DjangoCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
     BACKEND = DjangoCacheBackend
