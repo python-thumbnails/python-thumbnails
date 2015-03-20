@@ -181,16 +181,6 @@ class ThumbnailBaseEngine(object):
                 x_crop = CROP_ALIASES['x'][crop]
             elif crop in CROP_ALIASES['y']:
                 y_crop = CROP_ALIASES['y'][crop]
-        else:
-            if crop[0] in CROP_ALIASES['x']:
-                x_crop = CROP_ALIASES['x'][crop[0]]
-            else:
-                x_crop = float(crop[0])
-
-            if crop[0] in CROP_ALIASES['x']:
-                y_crop = CROP_ALIASES['y'][crop[1]]
-            else:
-                y_crop = float(crop[1])
 
         x_offset = self.calculate_offset(x_crop, original_size[0], size[0])
         y_offset = self.calculate_offset(y_crop, original_size[1], size[1])

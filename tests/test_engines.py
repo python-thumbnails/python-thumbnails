@@ -89,11 +89,6 @@ class BaseEngineTestCase(unittest.TestCase):
         self.assertEqual(self.engine.parse_crop('left', (200, 200), (100, 100)), (0, 50))
         self.assertEqual(self.engine.parse_crop('right', (200, 200), (100, 100)), (100, 50))
 
-        # self.assertEqual(self.engine.parse_crop('20 20', (200, 200), (100, 100)), (40, 40))
-        # self.assertEqual(self.engine.parse_crop('20 80', (200, 200), (100, 100)), (40, 160))
-        # self.assertEqual(self.engine.parse_crop('80 20', (200, 200), (100, 100)), (160, 40))
-        # self.assertEqual(self.engine.parse_crop('25.55 25.55', (200, 200), (100, 100)), (51, 51))
-
     def test_calculate_offset(self):
         self.assertEqual(self.engine.calculate_offset(0, 1000, 200), 0)
         self.assertEqual(self.engine.calculate_offset(50, 1000, 200), 400)
