@@ -11,7 +11,7 @@ def has_django():
 
 def has_pillow():
     try:
-        from PIL import Image
+        from PIL import Image  # noqa isort:skip
         return True
     except ImportError:
         return False
