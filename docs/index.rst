@@ -14,6 +14,7 @@ Thumbnails for Django, Flask and other Python projects.
     Image engines <image-engines>
     Cache backends <cache-backends>
     Settings <settings>
+    Contributing <contributing>
 
 .. |frigg| image:: https://ci.frigg.io/badges/relekang/python-thumbnails/
     :target: https://ci.frigg.io/relekang/python-thumbnails/last/
