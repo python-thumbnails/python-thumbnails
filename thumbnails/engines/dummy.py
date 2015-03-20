@@ -5,7 +5,7 @@ from thumbnails.images import Thumbnail
 from .base import ThumbnailBaseEngine
 
 
-class DummmyEngine(ThumbnailBaseEngine):
+class DummyEngine(ThumbnailBaseEngine):
 
     def create(self, original, size, crop, options=None):
         thumbnail = Thumbnail('dummy_{}x{}'.format(size[0], size[1]))

@@ -5,7 +5,7 @@ import unittest
 from PIL import Image
 
 from thumbnails.engines.base import ThumbnailBaseEngine
-from thumbnails.engines.dummy import DummmyEngine
+from thumbnails.engines.dummy import DummyEngine
 from thumbnails.engines.pillow import PillowEngine
 from thumbnails.images import SourceFile, Thumbnail
 
@@ -101,7 +101,7 @@ class BaseEngineTestCase(unittest.TestCase):
 class DummyEngineTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.engine = DummmyEngine()
+        self.engine = DummyEngine()
         self.filename = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
         self.file = SourceFile(self.filename)
         self.url = SourceFile('http://puppies.lkng.me/400x600/')
