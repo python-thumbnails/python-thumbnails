@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import codecs
 import os
 
 import requests
 
 from thumbnails.conf import settings
+from thumbnails.helpers import get_engine, get_storage_backend
 
 
 class Thumbnail(object):
@@ -52,7 +52,10 @@ class Thumbnail(object):
 
     @property
     def exists(self):
-        return os.path.exists(self.path)
+        return get_storage_backend().exists(self.path)
+
+    def save(self, options):
+        return get_storage_backend().save(self.path, get_engine().raw_data(self.image, options))
 
 
 class SourceFile(object):
@@ -63,4 +66,4 @@ class SourceFile(object):
     def open(self):
         if self.file.startswith('http'):
             return requests.get(self.file, stream=True).raw
-        return codecs.open(self.file)
+        return get_storage_backend().open(self.file)

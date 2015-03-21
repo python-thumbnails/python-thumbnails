@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import os
 import unittest
 
@@ -62,12 +63,13 @@ class EngineTestMixin(object):
         self.assertEqual(thumbnail.size[0], 400)
         self.assertEqual(thumbnail.size[1], 600)
 
-    def test_save(self):
+    def test_raw_data(self):
         image = Image.new('L', (400, 600))
-        path = os.path.join(os.path.dirname(__file__), 'save_test.jpg')
-        self.engine.save_image(image, self.engine.default_options(), path)
-        self.assertTrue(os.path.exists(path))
-        os.remove(path)
+        raw_data = self.engine.raw_data(image, self.engine.default_options())
+        self.assertEqual(
+            hashlib.sha1(raw_data).hexdigest(),
+            'cd63a4ccd85070c76db822ca5ccb11ba59966256'
+        )
 
     def test_cleanup(self):
         self.assertIsNone(self.engine.cleanup(self.file))

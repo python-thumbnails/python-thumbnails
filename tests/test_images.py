@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-import os
 import unittest
+from thumbnails.conf import settings
 
 from thumbnails.images import Thumbnail
+
+from .compat import mock
 
 
 class ThumbnailTestCase(unittest.TestCase):
@@ -39,10 +41,8 @@ class ThumbnailTestCase(unittest.TestCase):
         self.instance.size = 400, 200
         self.assertTrue(self.instance.is_landscape)
 
-    def test_exists(self):
+    @mock.patch('{}.exists'.format(settings.THUMBNAIL_STORAGE_BACKEND))
+    def test_exists(self, mock_exists):
         self.instance = Thumbnail(['name'])
-        self.assertFalse(self.instance.exists)
-        with open(self.instance.path, 'w') as f:
-            f.write('ii')
         self.assertTrue(self.instance.exists)
-        os.remove(self.instance.path)
+        mock_exists.assert_called_with(self.instance.path)

@@ -13,6 +13,7 @@ Thumbnails for Django, Flask and other Python projects.
     How it works <how-it-works>
     Image engines <image-engines>
     Cache backends <cache-backends>
+    Storage backends <storage-backends>
     Settings <settings>
     Contributing <contributing>
 

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-
 from thumbnails.conf import settings
 from thumbnails.errors import ThumbnailError
 from thumbnails.images import Thumbnail
@@ -53,10 +51,8 @@ class BaseThumbnailEngine(object):
         :param options:
         :return:
         """
-        _options = options
-        options = self.default_options()
-        if _options:
-            options.update(_options)
+        if options is None:
+            options = self.evaluate_options()
         image = self.engine_load_image(original)
         image = self.scale(image, size, crop, options)
         crop = self.parse_crop(crop, self.get_image_size(image), size)
@@ -116,19 +112,14 @@ class BaseThumbnailEngine(object):
         """
         return self.engine_image_size(image)
 
-    def save_image(self, image, options, location):
+    def raw_data(self, image, options):
         """
-        Wrapper for ``engine_save_image``. Ensures that the folder where the thumbnail should be
-        saved exists.
+        Wrapper for ``engine_raw_data``.
 
         :param image:
         :param options:
-        :param location: The location where the thumbnail should be stored.
         """
-        directory = os.path.dirname(location)
-        if not os.path.exists(directory):
-            os.mkdir(directory)
-        self.engine_save_image(image, options, location)
+        return self.engine_raw_data(image, options)
 
     def _calculate_scaling_factor(self, original_size, size, has_crop):
         factors = []
@@ -140,6 +131,13 @@ class BaseThumbnailEngine(object):
         if has_crop:
             return max(factors)
         return min(factors)
+
+    def evaluate_options(self, options=None):
+        _options = options
+        options = self.default_options()
+        if _options:
+            options.update(_options)
+        return options
 
     def default_options(self):
         return {
@@ -218,13 +216,13 @@ class BaseThumbnailEngine(object):
         """
         raise NotImplementedError
 
-    def engine_save_image(self, image, options, location):
+    def engine_raw_data(self, image, options):
         """
-        Engine specific saving of image, should be implemented by all subclasses.
+        Engine specific saving of image into a file object, should be implemented by all subclasses.
 
         :param image: The image object that should be saved.
         :param options: Options that should be used in order to save the image e.g. quality.
-        :param location: The location where the image should be saved.
+        :return: File object with image contents
         """
         raise NotImplementedError
 

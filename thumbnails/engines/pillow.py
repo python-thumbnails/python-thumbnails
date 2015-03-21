@@ -14,11 +14,14 @@ class PillowEngine(BaseThumbnailEngine):
     def engine_load_image(self, original):
         return Image.open(BytesIO(original.open().read()))
 
-    def engine_save_image(self, image, options, location):
+    def engine_raw_data(self, image, options):
         pillow_options = {
+            'format': 'JPEG',
             'quality': options['quality'],
         }
-        image.save(location, **pillow_options)
+        _file = BytesIO()
+        image.save(_file, **pillow_options)
+        return _file.getvalue()
 
     def engine_image_size(self, image):
         return image.size

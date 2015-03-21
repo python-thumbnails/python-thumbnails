@@ -21,3 +21,7 @@ def get_engine():
 
 def get_cache_backend():
     return import_attribute(settings.THUMBNAIL_CACHE_BACKEND)
+
+
+def get_storage_backend():
+    return import_attribute(settings.THUMBNAIL_STORAGE_BACKEND)
