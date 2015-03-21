@@ -2,6 +2,7 @@
 import os
 
 from thumbnails.conf import settings
+from thumbnails.errors import ThumbnailError
 from thumbnails.images import Thumbnail
 
 CROP_ALIASES = {
@@ -36,6 +37,8 @@ class BaseThumbnailEngine(object):
         """
         try:
             image = self.create(original, self.parse_size(size), crop, options)
+        except ThumbnailError:
+            image = None
         finally:
             self.cleanup(original)
         return image

@@ -7,9 +7,11 @@ from PIL import Image
 from thumbnails.engines.base import BaseThumbnailEngine
 from thumbnails.engines.dummy import DummyEngine
 from thumbnails.engines.pillow import PillowEngine
+from thumbnails.errors import ThumbnailError
 from thumbnails.images import SourceFile, Thumbnail
 
 from .utils import has_pillow
+from .compat import mock
 
 
 class EngineTestMixin(object):
@@ -25,6 +27,20 @@ class EngineTestMixin(object):
 
     def tearDown(self):
         os.remove(self.filename)
+
+    @mock.patch('thumbnails.engines.BaseThumbnailEngine.create')
+    @mock.patch('thumbnails.engines.BaseThumbnailEngine.cleanup')
+    def test_get_thumbnail(self, mock_create, mock_cleanup):
+        self.engine.get_thumbnail(self.file, '200', None, None)
+        self.assertTrue(mock_create.called)
+        self.assertTrue(mock_cleanup.called)
+
+    @mock.patch('thumbnails.engines.BaseThumbnailEngine.create', side_effect=ThumbnailError())
+    @mock.patch('thumbnails.engines.BaseThumbnailEngine.cleanup')
+    def test_get_thumbnail_fail(self, mock_create, mock_cleanup):
+        self.engine.get_thumbnail(self.file, '200', None, None)
+        self.assertTrue(mock_create.called)
+        self.assertTrue(mock_cleanup.called)
 
     def test_create_from_file(self):
         thumbnail = self.engine.create(self.file, (200, 300), None)
