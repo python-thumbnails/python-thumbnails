@@ -44,7 +44,4 @@ class SettingsWrapper(object):
     def _load_from_module(self, _module, target):
         for setting in dir(_module):
             if not setting.startswith('_'):
-                if isinstance(target, dict):
-                    target[setting] = getattr(_module, setting)
-                else:
-                    setattr(target, setting, getattr(_module, setting))
+                target[setting] = getattr(_module, setting)
