@@ -2,10 +2,10 @@
 from thumbnails.conf import settings
 from thumbnails.images import Thumbnail
 
-from .base import ThumbnailBaseEngine
+from .base import BaseThumbnailEngine
 
 
-class DummyEngine(ThumbnailBaseEngine):
+class DummyEngine(BaseThumbnailEngine):
     """
     A Engine that will use a placeholder service in order to show the Thumbnails. It uses
     ``THUMBNAIL_DUMMY_URL`` to build the url of the thumbnail. More info can be found in the

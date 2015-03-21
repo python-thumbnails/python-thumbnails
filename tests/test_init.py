@@ -14,8 +14,8 @@ class GetThumbnailTestCase(unittest.TestCase):
     def test_get_thumbnail_cached(self):
         self.assertTrue(get_thumbnail('', '200'))
 
-    @mock.patch('thumbnails.engines.base.ThumbnailBaseEngine.get_thumbnail')
-    @mock.patch('thumbnails.engines.base.ThumbnailBaseEngine.save_image')
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.get_thumbnail')
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.save_image')
     @mock.patch('{}.set'.format(settings.THUMBNAIL_CACHE_BACKEND))
     def test_get_thumbnail(self, mock_engine_get_thumbnail, mock_save_image, mock_cache_set):
         thumbnail = get_thumbnail('http://puppies.lkng.me/400x600/', '200')

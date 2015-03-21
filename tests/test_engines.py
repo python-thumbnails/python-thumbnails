@@ -4,7 +4,7 @@ import unittest
 
 from PIL import Image
 
-from thumbnails.engines.base import ThumbnailBaseEngine
+from thumbnails.engines.base import BaseThumbnailEngine
 from thumbnails.engines.dummy import DummyEngine
 from thumbnails.engines.pillow import PillowEngine
 from thumbnails.images import SourceFile, Thumbnail
@@ -60,7 +60,7 @@ class EngineTestMixin(object):
 class BaseEngineTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.engine = ThumbnailBaseEngine()
+        self.engine = BaseThumbnailEngine()
 
     def test__calculate_scaling_factor_without_crop(self):
         calculate_scaling_factor = self.engine._calculate_scaling_factor

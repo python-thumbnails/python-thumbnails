@@ -2,10 +2,11 @@
 from PIL import Image
 
 from thumbnails.compat import BytesIO
-from thumbnails.engines.base import ThumbnailBaseEngine
+
+from .base import BaseThumbnailEngine
 
 
-class PillowEngine(ThumbnailBaseEngine):
+class PillowEngine(BaseThumbnailEngine):
     """
     Thumbnail engine for Pillow
     """

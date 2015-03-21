@@ -18,7 +18,7 @@ CROP_ALIASES = {
 }
 
 
-class ThumbnailBaseEngine(object):
+class BaseThumbnailEngine(object):
     """
     A base class for Thumbnail engines. Any thumbnail engine should be a subclass of this and
     implement all methods prefixed with ``engine``.
