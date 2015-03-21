@@ -112,6 +112,11 @@ class BaseEngineTestCase(unittest.TestCase):
         self.assertEqual(self.engine.calculate_offset(50, 1000, 200), 400)
         self.assertEqual(self.engine.calculate_offset(100, 1000, 200), 800)
 
+    def test_evaluate_options(self):
+        self.assertEqual(self.engine.evaluate_options(None), self.engine.default_options())
+        self.assertEqual(self.engine.evaluate_options({}), self.engine.default_options())
+        self.assertEqual(self.engine.evaluate_options({'quality': 50})['quality'], 50)
+
 
 class DummyEngineTestCase(unittest.TestCase):
 
