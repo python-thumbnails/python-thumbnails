@@ -10,11 +10,14 @@ def generate_filename(original, size, crop, options):
     return [h[:3], h[3:]]
 
 
-def get_engine():
-    modules = settings.THUMBNAIL_ENGINE.split('.')
+def import_attribute(module_string):
+    modules = module_string.split('.')
     return getattr(importlib.import_module('.'.join(modules[:len(modules) - 1])), modules[-1])()
+
+
+def get_engine():
+    return import_attribute(settings.THUMBNAIL_ENGINE)
 
 
 def get_cache_backend():
-    modules = settings.THUMBNAIL_CACHE_BACKEND.split('.')
-    return getattr(importlib.import_module('.'.join(modules[:len(modules) - 1])), modules[-1])()
+    return import_attribute(settings.THUMBNAIL_CACHE_BACKEND)

@@ -10,8 +10,8 @@ from thumbnails.engines.pillow import PillowEngine
 from thumbnails.errors import ThumbnailError
 from thumbnails.images import SourceFile, Thumbnail
 
-from .utils import has_pillow
 from .compat import mock
+from .utils import has_pillow
 
 
 class EngineTestMixin(object):
