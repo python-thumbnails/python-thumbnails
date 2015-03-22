@@ -116,6 +116,11 @@ class BaseEngineTestCase(unittest.TestCase):
         self.assertEqual(self.engine.evaluate_options(None), self.engine.default_options())
         self.assertEqual(self.engine.evaluate_options({}), self.engine.default_options())
         self.assertEqual(self.engine.evaluate_options({'quality': 50})['quality'], 50)
+        self.assertEqual(
+            len(self.engine.evaluate_options({'quality': 50}).keys()),
+            len(self.engine.evaluate_options({}).keys()),
+        )
+
 
 
 class DummyEngineTestCase(unittest.TestCase):
