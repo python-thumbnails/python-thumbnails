@@ -24,7 +24,8 @@ class Thumbnail(object):
     def url(self):
         if self._url:
             return self._url
-        return '/'.join([settings.THUMBNAIL_URL, '{}.{}'.format(self.name, self.extension)])
+        return '/'.join([settings.THUMBNAIL_URL, '{}.{}'.format(self.name, self.extension)])\
+                  .replace('//', '/')
 
     @property
     def extension(self):
