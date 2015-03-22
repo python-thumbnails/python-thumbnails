@@ -25,10 +25,10 @@ Thumbnails for Django, Flask and other Python projects.
     :target: https://ci.frigg.io/relekang/python-thumbnails/last/
     :alt: Coverage
 
-.. |version| image:: https://pypip.in/version/python-thumbnails/badge.png?style=flat
+.. |version| image:: https://pypip.in/version/python-thumbnails/badge.svg?style=flat
     :target: https://pypi.python.org/pypi/python-thumbnails/
     :alt: Latest Version
 
-.. |python| image:: https://pypip.in/py_versions/python-thumbnails/badge.png?style=flat
+.. |python| image:: https://pypip.in/py_versions/python-thumbnails/badge.svg?style=flat
     :target: https://pypi.python.org/pypi/python-thumbnails/
     :alt: Supported Python versions
