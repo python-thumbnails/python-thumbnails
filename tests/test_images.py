@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
-from thumbnails.conf import settings
 
+from thumbnails.conf import settings
 from thumbnails.images import Thumbnail
 
 from .compat import mock

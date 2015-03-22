@@ -2,8 +2,8 @@
 import codecs
 import os
 
-from .conf import settings
 from .compat import makedirs
+from .conf import settings
 
 
 class BaseStorageBackend(object):

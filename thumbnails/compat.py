@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
 import errno
+
 import six
 
 BytesIO = six.BytesIO
@@ -13,7 +13,7 @@ else:
 
     def makedirs(name, mode=0o777, exist_ok=False):
         try:
-            os.makedirs(name, mode)
+            os_makedirs(name, mode)
         except OSError as e:
             if e.errno != errno.EEXIST or not exist_ok:
                 raise
