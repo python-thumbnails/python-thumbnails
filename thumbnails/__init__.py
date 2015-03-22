@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from thumbnails import helpers
+from thumbnails.conf import settings
 from thumbnails.images import SourceFile, Thumbnail
 
 __version__ = '0.1.0'
@@ -18,7 +19,14 @@ def get_thumbnail(original, size, crop=None, options=None):
     thumbnail = Thumbnail(thumbnail_name)
     if not thumbnail.exists:
         options = engine.evaluate_options(options)
+        size = engine.parse_size(size)
         thumbnail.image = engine.get_thumbnail(original, size, crop, options)
         thumbnail.save(options)
+
+        for resolution in settings.THUMBNAIL_ALTERNATIVE_RESOLUTIONS:
+            resolution_size = engine.calculate_alternative_resolution_size(resolution, size)
+            image = engine.get_thumbnail(original, resolution_size, crop, options)
+            thumbnail.save_alternative_resolution(resolution, image, options)
+
     cache.set(thumbnail)
     return thumbnail

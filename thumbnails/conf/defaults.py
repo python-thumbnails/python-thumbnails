@@ -9,6 +9,7 @@ THUMBNAIL_STORAGE_BACKEND = 'thumbnails.storage_backends.FilesystemStorageBacken
 
 THUMBNAIL_SCALE_UP = False
 THUMBNAIL_QUALITY = 90
+THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [2]
 
 THUMBNAIL_DUMMY = False
 THUMBNAIL_DUMMY_URL = 'http://puppies.lkng.me/{}x{}'

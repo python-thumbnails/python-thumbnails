@@ -58,6 +58,16 @@ class Thumbnail(object):
     def save(self, options):
         return get_storage_backend().save(self.path, get_engine().raw_data(self.image, options))
 
+    def alternative_resolution_path(self, resolution):
+        return os.path.join(
+            settings.THUMBNAIL_PATH,
+            '{}@{}x.{}'.format(self.name, resolution, self.extension)
+        )
+
+    def save_alternative_resolution(self, resolution, image, options):
+        path = self.alternative_resolution_path(resolution)
+        return get_storage_backend().save(path, get_engine().raw_data(image, options))
+
 
 class SourceFile(object):
 

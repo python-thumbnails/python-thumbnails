@@ -121,6 +121,24 @@ class BaseEngineTestCase(unittest.TestCase):
             len(self.engine.evaluate_options({}).keys()),
         )
 
+    def test_calculate_alternative_resolution_size(self):
+        self.assertEqual(
+            self.engine.calculate_alternative_resolution_size(2, (100, None)),
+            (200, None)
+        )
+        self.assertEqual(
+            self.engine.calculate_alternative_resolution_size(2, (100, 150)),
+            (200, 300)
+        )
+        self.assertEqual(
+            self.engine.calculate_alternative_resolution_size(2, (None, 150)),
+            (None, 300)
+        )
+        self.assertEqual(
+            self.engine.calculate_alternative_resolution_size(1.5, (100, 100)),
+            (150, 150)
+        )
+
 
 class DummyEngineTestCase(unittest.TestCase):
 

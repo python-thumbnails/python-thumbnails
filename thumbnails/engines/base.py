@@ -34,7 +34,7 @@ class BaseThumbnailEngine(object):
         :return: An image object
         """
         try:
-            image = self.create(original, self.parse_size(size), crop, options)
+            image = self.create(original, size, crop, options)
         except ThumbnailError:
             image = None
         finally:
@@ -202,6 +202,18 @@ class BaseThumbnailEngine(object):
             max(0,
                 min(percent * original_length / 100.0, original_length - length / 2) - length / 2)
         )
+
+    @staticmethod
+    def calculate_alternative_resolution_size(resolution, size):
+        if size[0] is not None:
+            resolution_size = int(size[0] * resolution),
+        else:
+            resolution_size = None,
+        if size[1] is not None:
+            resolution_size += int(size[1] * resolution),
+        else:
+            resolution_size += None,
+        return resolution_size
 
     @staticmethod
     def create_thumbnail_object(name):

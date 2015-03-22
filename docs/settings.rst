@@ -43,6 +43,13 @@ Image options
     | Quality sent to the engine. 
     | **Default:** ``90``
 
+.. attribute:: THUMBNAIL_ALTERNATIVE_RESOLUTIONS
+    :noindex:
+
+    | Defines which alternative resolutions should be created. Each item in the list will create
+      an alternative version with the number as a proportions-factor.
+    | **Default:** ``[2]``
+
 Dummy thumbnails
 ----------------
 

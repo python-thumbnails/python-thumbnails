@@ -18,5 +18,10 @@ If there exist no thumbnail file for the given hash the thumbnail will be create
 image engine and saved with the storage engine before saving the information about the created
 thumbnail in the cache.
 
+After creating the thumbnail an extra thumbnail will be created for every resolution listed in the
+alternative resolution setting. Note that the there is no check if the alternative resolution
+exists. The alternative resolution thumbnails will only be created if the standard resolution
+thumbnail does not exist.
+
 .. [1] The reason for only adding options that differ from the defaults is to avoid massive
        regeneration of thumbnails if the defaults changes.
