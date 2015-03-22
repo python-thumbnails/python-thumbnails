@@ -27,6 +27,13 @@ Settings
     | **Default:** ``thumbnails.cache_backends.SimpleCacheBackend``
     | **Default in Django:** ``thumbnails.cache_backends.DjangoCacheBackend``
 
+.. attribute:: THUMBNAIL_STORAGE_BACKEND
+    :noindex:
+
+    | **Default:** ``thumbnails.storage_backends.FilesystemStorageBackend``
+    | **Default in Django:** ``thumbnails.storage_backends.DjangoStorageBackend``
+
+
 Image options
 -------------
 
