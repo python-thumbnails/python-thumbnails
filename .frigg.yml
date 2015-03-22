@@ -8,7 +8,7 @@ tasks:
  - flake8
  - isort -rc -c thumbnails tests
  - coverage combine && coverage report && coverage xml
- - tox -e docs
+ - tox -e py34-docs
 
 coverage:
   path: coverage.xml
