@@ -3,6 +3,8 @@ tasks:
  - tox -e py27
  - tox -e py27-django17
  - tox -e py34-django17
+ - tox -e py27-django18
+ - tox -e py34-django18
  - flake8
  - isort -rc -c thumbnails tests
  - coverage combine && coverage report && coverage xml
