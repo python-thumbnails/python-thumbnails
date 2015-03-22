@@ -3,19 +3,14 @@
 Thumbnails for Django, Flask and other Python projects.
 
 ## Work in progress
-This project is currently work in progress.
-
-- [ ] No framework
-  - [x] Scaling without cropping
-  - [ ] Cropping
-  - [x] Saving
-  - [x] Caching
-- [ ] Django
-- [ ] Flask
+This project is currently work in progress. It is not production ready.
+[This gist](https://gist.github.com/relekang/1544815ce1370a0be2b4) outlines the planned features
+and there status of them.
 
 ## Install
-```
-pip install -e https://github.com/relekang/python-thumbnails.git#egg=python-thumbnails
+```bash
+pip install pillow  # default image engine, not necessary if another engine is used
+pip install python-thumbnails
 ```
 
 ## Usage
