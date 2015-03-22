@@ -3,7 +3,9 @@ import os
 import shutil
 import unittest
 
-from thumbnails.storage_backends import BaseStorageBackend, FilesystemStorageBackend
+from tests.utils import has_django
+from thumbnails.storage_backends import (BaseStorageBackend, DjangoStorageBackend,
+                                         FilesystemStorageBackend)
 
 
 class StorageBackendTestMixin(object):
@@ -18,6 +20,7 @@ class StorageBackendTestMixin(object):
     def test_save(self):
         self.backend.save('t/est_file', b'123')
         self.assertTrue(os.path.exists(self.backend.path('t/est_file')))
+        shutil.rmtree(self.backend.path('t'))
 
 
 class BaseStorageBackendTestCase(unittest.TestCase):
@@ -38,3 +41,8 @@ class FilesystemStorageBackendTestCase(StorageBackendTestMixin, unittest.TestCas
         shutil.rmtree(self.backend.location)
         instance = self.BACKEND()
         os.path.exists(instance.location)
+
+
+@unittest.skipIf(not has_django(), 'Django not installed')
+class DjangoStorageBackendTestCase(StorageBackendTestMixin, unittest.TestCase):
+    BACKEND = DjangoStorageBackend

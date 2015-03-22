@@ -2,7 +2,9 @@
 import codecs
 import os
 
-from .compat import makedirs
+from thumbnails import helpers
+
+from .compat import BytesIO, makedirs
 from .conf import settings
 
 
@@ -23,12 +25,21 @@ class BaseStorageBackend(object):
         return os.path.join(self.location, path)
 
     def open(self, name, **kwargs):
-        raise NotImplementedError
+        return self._open(self.path(name), **kwargs)
 
     def exists(self, name):
-        raise NotImplementedError
+        return self._exists(self.path(name))
 
     def save(self, name, data):
+        return self._save(self.path(name), data)
+
+    def _open(self, name, **kwargs):
+        raise NotImplementedError
+
+    def _exists(self, name):
+        raise NotImplementedError
+
+    def _save(self, name, data):
         raise NotImplementedError
 
 
@@ -42,15 +53,34 @@ class FilesystemStorageBackend(BaseStorageBackend):
         if not os.path.exists(self.location):
             makedirs(self.location, exist_ok=True)
 
-    def open(self, name, mode='rb', encoding=None, errors='strict'):
-        return codecs.open(self.path(name), mode=mode, encoding=encoding, errors=errors)
+    def _open(self, name, mode='rb', encoding=None, errors='strict'):
+        return codecs.open(name, mode=mode, encoding=encoding, errors=errors)
 
-    def exists(self, name):
-        return os.path.exists(self.path(name))
+    def _exists(self, name):
+        return os.path.exists(name)
 
-    def save(self, name, data):
-        if not os.path.exists(os.path.dirname(self.path(name))):
-            makedirs(os.path.dirname(self.path(name)), exist_ok=True)
+    def _save(self, name, data):
+        if not os.path.exists(os.path.dirname(name)):
+            makedirs(os.path.dirname(name), exist_ok=True)
 
-        with open(self.path(name), 'wb') as f:
+        with open(name, 'wb') as f:
             f.write(data)
+
+
+class DjangoStorageBackend(BaseStorageBackend):
+    """
+    A wrapper around Django's storage backend
+    """
+
+    def __init__(self):
+        super(DjangoStorageBackend, self).__init__()
+        self._backend = helpers.import_attribute(settings.DEFAULT_FILE_STORAGE)
+
+    def _open(self, name, mode='rb'):
+        return self._backend.open(name, mode=mode)
+
+    def _exists(self, name):
+        return self._backend.exists(name)
+
+    def _save(self, name, data):
+        return self._backend.save(name, BytesIO(data))

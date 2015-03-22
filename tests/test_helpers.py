@@ -5,7 +5,7 @@ from thumbnails.cache_backends import DjangoCacheBackend, SimpleCacheBackend
 from thumbnails.engines import PillowEngine
 from thumbnails.helpers import generate_filename, get_cache_backend, get_engine, get_storage_backend
 from thumbnails.images import SourceFile
-from thumbnails.storage_backends import FilesystemStorageBackend
+from thumbnails.storage_backends import DjangoStorageBackend, FilesystemStorageBackend
 
 from .utils import has_django
 
@@ -32,4 +32,7 @@ class HelpersTestCase(unittest.TestCase):
             self.assertIsInstance(get_cache_backend(), SimpleCacheBackend)
 
     def test_get_storage_backend(self):
-        self.assertIsInstance(get_storage_backend(), FilesystemStorageBackend)
+        if has_django():
+            self.assertIsInstance(get_storage_backend(), DjangoStorageBackend)
+        else:
+            self.assertIsInstance(get_storage_backend(), FilesystemStorageBackend)
