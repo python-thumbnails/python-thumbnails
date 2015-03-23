@@ -27,6 +27,12 @@ Settings
     | **Default:** ``thumbnails.cache_backends.SimpleCacheBackend``
     | **Default in Django:** ``thumbnails.cache_backends.DjangoCacheBackend``
 
+.. attribute:: THUMBNAIL_CACHE_TIMEOUT
+    :noindex:
+
+    | A timeout parameter for cache backends that does not support eternal items.
+    | **Default:** ``60 * 60 * 24 * 365`` (a year in seconds)
+
 .. attribute:: THUMBNAIL_STORAGE_BACKEND
     :noindex:
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from thumbnails import settings
 
 
 class BaseCacheBackend(object):
@@ -6,6 +7,9 @@ class BaseCacheBackend(object):
     Extendible cache backend that should be used when creating a new cache backend. Subclasses
     should only override methods prefixed with ``_``.
     """
+
+    def __init__(self):
+        self.TIMEOUT = settings.THUMBNAIL_CACHE_TIMEOUT
 
     def get(self, thumbnail_name):
         """
@@ -15,7 +19,7 @@ class BaseCacheBackend(object):
         :rtype: Thumbnail
         """
         if isinstance(thumbnail_name, list):
-            thumbnail_name = ''.join(thumbnail_name)
+            thumbnail_name = '/'.join(thumbnail_name)
         return self._get(thumbnail_name)
 
     def set(self, thumbnail):
@@ -64,6 +68,7 @@ class DjangoCacheBackend(BaseCacheBackend):
     """
 
     def __init__(self):
+        super(DjangoCacheBackend, self).__init__()
         from django.core.cache import cache  # noqa isort:skip
         self.cache = cache
 
@@ -71,4 +76,4 @@ class DjangoCacheBackend(BaseCacheBackend):
         return self.cache.get(thumbnail_name.replace('/', ''))
 
     def _set(self, thumbnail_name, thumbnail):
-        self.cache.set(thumbnail_name.replace('/', ''), thumbnail)
+        self.cache.set(thumbnail_name.replace('/', ''), thumbnail, timeout=self.TIMEOUT)
