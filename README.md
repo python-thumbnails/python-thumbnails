@@ -5,7 +5,7 @@ Thumbnails for Django, Flask and other Python projects.
 ## Work in progress
 This project is currently work in progress. It is not production ready.
 [This gist](https://gist.github.com/relekang/1544815ce1370a0be2b4) outlines the planned features
-and there status of them.
+and the status of them.
 
 ## Install
 ```bash
