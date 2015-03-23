@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import pickle
+import re
+
 from thumbnails import settings
 
 
@@ -77,3 +80,59 @@ class DjangoCacheBackend(BaseCacheBackend):
 
     def _set(self, thumbnail_name, thumbnail):
         self.cache.set(thumbnail_name.replace('/', ''), thumbnail, timeout=self.TIMEOUT)
+
+
+class RedisCacheBackend(BaseCacheBackend):
+    """
+    Cache backend that connects to Redis with redis-py. It uses the
+    ``THUMBNAIL_CACHE_CONNECTION_URI`` setting as connection configuration.
+    The setting should contain a string on the form: ``redis://host:port/db``,
+    example: ``redis://127.0.0.1:6379/0`` will give the default settings.
+    This backend does not sett time-to-live on the cached items, thus they will
+    be in redis until they are deleted.
+
+    If the settings string is not good enough for your configuration, it is possible to extend
+    this backend and override ``get_settings``.
+    """
+
+    def __init__(self):
+        import redis
+        super(RedisCacheBackend, self).__init__()
+        self.connection_uri = getattr(settings, 'THUMBNAIL_CACHE_CONNECTION_URI', None)
+        self.redis = redis.StrictRedis(**self.get_settings())
+
+    def _get(self, thumbnail_name):
+        thumbnail = self.redis.get(thumbnail_name)
+        if thumbnail is not None:
+            return pickle.loads(thumbnail)
+
+    def _set(self, thumbnail_name, thumbnail):
+        return self.redis.set(thumbnail_name, pickle.dumps(thumbnail))
+
+    def get_settings(self):
+        """
+        This creates a dict with keyword arguments used to create the redis client.
+        It is used like ``redis.StrictClient(**self.get_settings())``. Thus, if the
+        settings string is not enough to generate the wanted setting you can override
+        this function.
+
+        :return: A dict with keyword arguments for the redis client constructor.
+        """
+        host = '127.0.0.1'
+        port = 6379
+        db = 0
+        if self.connection_uri is not None:
+            match = re.match(r'redis://(?:([\w]+)@)?([\w\d\.]+):(\d+)(?:/(\d+))?', self.connection_uri)
+            if match:
+                if match.group(2):
+                    host = match.group(2)
+                if match.group(3):
+                    port = int(match.group(3))
+                if match.group(4):
+                    db = int(match.group(4))
+
+        return {
+            'host': host,
+            'port': port,
+            'db': db
+        }

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from thumbnails.cache_backends import BaseCacheBackend, DjangoCacheBackend, SimpleCacheBackend
+from thumbnails.cache_backends import (BaseCacheBackend, DjangoCacheBackend, RedisCacheBackend,
+                                       SimpleCacheBackend)
 from thumbnails.images import Thumbnail
 
 from .compat import mock
-from .utils import has_django
+from .utils import has_django, has_redis
 
 
 class CacheBackendTestMixin(object):
-
     def setUp(self):
         self.backend = self.BACKEND()
 
@@ -25,7 +25,6 @@ class CacheBackendTestMixin(object):
 
 
 class BaseCacheBackendTestCase(unittest.TestCase):
-
     def setUp(self):
         self.backend = BaseCacheBackend()
 
@@ -52,3 +51,20 @@ class SimpleCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
 @unittest.skipIf(not has_django(), 'Django is not installed')
 class DjangoCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
     BACKEND = DjangoCacheBackend
+
+
+@unittest.skipIf(not has_redis(), 'Redis not installed')
+class RedisCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
+    BACKEND = RedisCacheBackend
+
+    def test_get_settings(self):
+        settings = self.backend.get_settings()
+        self.assertEqual(settings['host'], '127.0.0.1')
+        self.assertEqual(settings['port'], 6379)
+        self.assertEqual(settings['db'], 0)
+
+        self.backend.connection_uri = 'redis://example.com:1234/9'
+        settings = self.backend.get_settings()
+        self.assertEqual(settings['host'], 'example.com')
+        self.assertEqual(settings['port'], 1234)
+        self.assertEqual(settings['db'], 9)

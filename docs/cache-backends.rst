@@ -16,3 +16,7 @@ directly in ``get_thumbnail`` if the cache returns it.
 .. autoclass:: thumbnails.cache_backends.DjangoCacheBackend
     :members:
     :private-members:
+
+.. autoclass:: thumbnails.cache_backends.RedisCacheBackend
+    :members:
+    :private-members:
