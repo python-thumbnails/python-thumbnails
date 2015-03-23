@@ -122,7 +122,8 @@ class RedisCacheBackend(BaseCacheBackend):
         port = 6379
         db = 0
         if self.connection_uri is not None:
-            match = re.match(r'redis://(?:([\w]+)@)?([\w\d\.]+):(\d+)(?:/(\d+))?', self.connection_uri)
+            re_connection_uri = r'redis://(?:([\w]+)@)?([\w\d\.]+):(\d+)(?:/(\d+))?'
+            match = re.match(re_connection_uri, self.connection_uri)
             if match:
                 if match.group(2):
                     host = match.group(2)
