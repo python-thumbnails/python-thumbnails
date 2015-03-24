@@ -5,20 +5,19 @@ import unittest
 
 from PIL import Image
 
-from thumbnails.engines.base import BaseThumbnailEngine
-from thumbnails.engines.dummy import DummyEngine
-from thumbnails.engines.pillow import PillowEngine
+from thumbnails.engines import BaseThumbnailEngine, DummyEngine, PillowEngine, WandEngine
 from thumbnails.errors import ThumbnailError
 from thumbnails.images import SourceFile, Thumbnail
 
 from .compat import mock
-from .utils import has_pillow
+from .utils import has_installed
 
 
 class EngineTestMixin(object):
 
     def setUp(self):
-        self.engine = self.ENGINE()
+        if self.ENGINE:
+            self.engine = self.ENGINE()
         self.filename = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
         self.file = SourceFile(self.filename)
         self.url = SourceFile('http://puppies.lkng.me/400x600/')
@@ -64,12 +63,11 @@ class EngineTestMixin(object):
         self.assertEqual(thumbnail.size[1], 600)
 
     def test_raw_data(self):
-        image = Image.new('L', (400, 600))
-        raw_data = self.engine.raw_data(image, self.engine.default_options())
-        self.assertEqual(
-            hashlib.sha1(raw_data).hexdigest(),
-            'cd63a4ccd85070c76db822ca5ccb11ba59966256'
+        raw_data = self.engine.raw_data(
+            self.engine.engine_load_image(self.file),
+            self.engine.default_options()
         )
+        self.assertEqual(hashlib.sha1(raw_data).hexdigest(), self.RAW_DATA_HASH)
 
     def test_cleanup(self):
         self.assertIsNone(self.engine.cleanup(self.file))
@@ -161,6 +159,13 @@ class DummyEngineTestCase(unittest.TestCase):
         self.assertEqual(thumbnail.url, 'http://puppies.lkng.me/200x300')
 
 
-@unittest.skipIf(not has_pillow(), 'Pillow not installed')
+@unittest.skipIf(not has_installed('PIL'), 'Pillow not installed')
 class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = PillowEngine
+    RAW_DATA_HASH = 'cd63a4ccd85070c76db822ca5ccb11ba59966256'
+
+
+@unittest.skipIf(not has_installed('wand'), 'Wand not installed')
+class WandEngineTestCase(EngineTestMixin, unittest.TestCase):
+    ENGINE = WandEngine
+    RAW_DATA_HASH = '8eb021308a7fb04cb0e87ce9026828f42e8a4a81'
