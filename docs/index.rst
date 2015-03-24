@@ -11,6 +11,7 @@ Thumbnails for Django, Flask and other Python projects.
 
     Quickstart <quickstart>
     How it works <how-it-works>
+    Creating thumbnails <creating-thumbnails>
     Image engines <image-engines>
     Cache backends <cache-backends>
     Storage backends <storage-backends>
