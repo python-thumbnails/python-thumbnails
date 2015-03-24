@@ -64,4 +64,3 @@ class SourceImageTestCase(unittest.TestCase):
         self.assertEqual(f.file, self.FILE_PATH)
         f = SourceFile(files.ImageFieldFile(field=field, instance=None, name=self.FILE_PATH))
         self.assertEqual(f.file, self.FILE_PATH)
-
