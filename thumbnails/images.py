@@ -72,7 +72,10 @@ class Thumbnail(object):
 class SourceFile(object):
 
     def __init__(self, source_file):
-        self.file = source_file
+        if hasattr(source_file, 'name'):
+            self.file = source_file.name
+        else:
+            self.file = source_file
 
     def open(self):
         if self.file.startswith('http'):

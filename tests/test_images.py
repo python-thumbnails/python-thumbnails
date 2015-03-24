@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 import unittest
 
 from thumbnails.conf import settings
-from thumbnails.images import Thumbnail
+from thumbnails.images import SourceFile, Thumbnail
 
 from .compat import mock
+from .utils import has_installed
 
 
 class ThumbnailTestCase(unittest.TestCase):
@@ -46,3 +48,20 @@ class ThumbnailTestCase(unittest.TestCase):
         self.instance = Thumbnail(['name'])
         self.assertTrue(self.instance.exists)
         mock_exists.assert_called_with(self.instance.path)
+
+
+class SourceImageTestCase(unittest.TestCase):
+    FILE_PATH = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
+
+    def test_init(self):
+        self.assertEqual(SourceFile(self.FILE_PATH).file, self.FILE_PATH)
+
+    @unittest.skipIf(not has_installed('django'), 'Django not installed')
+    def test_django_image_files(self):
+        from django.db.models.fields import files
+        field = files.FileField()
+        f = SourceFile(files.FieldFile(field=field, instance=None, name=self.FILE_PATH))
+        self.assertEqual(f.file, self.FILE_PATH)
+        f = SourceFile(files.ImageFieldFile(field=field, instance=None, name=self.FILE_PATH))
+        self.assertEqual(f.file, self.FILE_PATH)
+
