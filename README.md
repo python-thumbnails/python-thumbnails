@@ -1,8 +1,9 @@
 # python-thumbnails  [![Build status](https://ci.frigg.io/badges/relekang/python-thumbnails/)](https://ci.frigg.io/relekang/python-thumbnails/last/) [![Coverage status](https://ci.frigg.io/badges/coverage/relekang/python-thumbnails/)](https://ci.frigg.io/relekang/python-thumbnails/last/)
 
+Thumbnails for Django, Flask and other Python projects.
+
 [![Join the chat at https://gitter.im/relekang/python-thumbnails](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/relekang/python-thumbnails?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Thumbnails for Django, Flask and other Python projects.
 
 ## Work in progress
 This project is currently work in progress. It is not production ready.
