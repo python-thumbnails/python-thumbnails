@@ -4,7 +4,7 @@ from thumbnails.conf import settings
 from thumbnails.engines import DummyEngine
 from thumbnails.images import SourceFile, Thumbnail
 
-__version__ = '0.1.0c4'
+__version__ = '0.1.0'
 
 
 def get_thumbnail(original, size, **options):

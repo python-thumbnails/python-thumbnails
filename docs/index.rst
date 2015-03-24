@@ -16,6 +16,7 @@ Thumbnails for Django, Flask and other Python projects.
     Cache backends <cache-backends>
     Storage backends <storage-backends>
     Settings <settings>
+    Changelog <changelog>
     Contributing <contributing>
 
 .. |frigg| image:: https://ci.frigg.io/badges/relekang/python-thumbnails/
