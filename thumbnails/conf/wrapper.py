@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import importlib
+import json
 import os
+from tests.utils import override_settings
 
 from thumbnails.compat import makedirs
 
@@ -38,6 +40,11 @@ class SettingsWrapper(object):
         for settings_module in self.settings_modules:
             if getattr(settings_module, key, None):
                 value = getattr(settings_module, key, None)
+
+        if 'overridden_settings' in os.environ:
+            settings = json.loads(os.environ['overridden_settings'])
+            if key in settings:
+                value = settings[key]
 
         if value is None:
             raise AttributeError('No setting for "{}".'.format(key))

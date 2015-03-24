@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import importlib
+import json
+import os
 
 
 def has_installed(dependency):
@@ -20,3 +22,18 @@ def has_pillow():
 
 def has_redis():
     return has_installed('redis')
+
+
+class OverrideSettings(object):
+
+    def __init__(self, **settings):
+        self.settings = settings
+
+    def __enter__(self):
+        os.environ['overridden_settings'] = json.dumps(self.settings)
+
+    def __exit__(self, *args, **kwargs):
+        del os.environ['overridden_settings']
+
+
+override_settings = OverrideSettings
