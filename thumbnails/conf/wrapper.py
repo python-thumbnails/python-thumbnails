@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-
 import importlib
 import json
 import os
-from tests.utils import override_settings
 
 from thumbnails.compat import makedirs
 

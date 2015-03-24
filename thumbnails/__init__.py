@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from thumbnails import helpers
 from thumbnails.conf import settings
+from thumbnails.engines import DummyEngine
 from thumbnails.images import SourceFile, Thumbnail
 
 __version__ = '0.1.0c4'
@@ -28,6 +29,11 @@ def get_thumbnail(original, size, **options):
     original = SourceFile(original)
     crop = options.get('crop', None)
     thumbnail_name = helpers.generate_filename(original, size, crop, options)
+
+    if settings.THUMBNAIL_DUMMY:
+        engine = DummyEngine()
+        return engine.get_thumbnail(thumbnail_name, engine.parse_size(size), crop, options)
+
     cached = cache.get(thumbnail_name)
 
     force = options is not None and 'force' in options and options['force']

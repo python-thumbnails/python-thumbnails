@@ -6,6 +6,7 @@ from thumbnails.conf import settings
 from thumbnails.images import Thumbnail
 
 from .compat import mock
+from .utils import override_settings
 
 
 class GetThumbnailTestCase(unittest.TestCase):
@@ -39,3 +40,10 @@ class GetThumbnailTestCase(unittest.TestCase):
         self.assertEqual(len(mock_get_thumbnail.call_args_list), 4)
         self.assertEqual(len(mock_save.call_args_list), 4)
         self.assertEqual(len(mock_cache_set.call_args_list), 2)
+
+    def test_dummy(self):
+        with override_settings(THUMBNAIL_DUMMY=True):
+            self.assertEqual(
+                get_thumbnail('t.jpg', '200x200').url,
+                'http://puppies.lkng.me/200x200'
+            )
