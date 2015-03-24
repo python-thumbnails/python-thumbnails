@@ -6,18 +6,36 @@ from thumbnails.images import SourceFile, Thumbnail
 __version__ = '0.1.0c4'
 
 
-def get_thumbnail(original, size, crop=None, options=None):
+def get_thumbnail(original, size, **options):
+    """
+    Creates or gets an already created thumbnail for the given image with the given size and
+    options.
+
+    :param original: File-path or url to the image that you want an thumbnail of.
+    :param size: String with the wanted thumbnail size. On the form: ``200x200``, ``200`` or
+                 ``x200``.
+
+    :param crop: Crop settings, should be ``center``, ``top``, ``right``, ``bottom``, ``left``.
+    :param force: If set to ``True`` the thumbnail will be created even if it exists before.
+    :param quality: Overrides ``THUMBNAIL_QUALITY``, will set the quality used by the backend while
+                    saving the thumbnail.
+    :param scale_up: Overrides ``THUMBNAIL_SCALE_UP``, if set to ``True`` the image will be scaled
+                     up if necessary.
+    :return: A Thumbnail object
+    """
     engine = helpers.get_engine()
     cache = helpers.get_cache_backend()
     original = SourceFile(original)
+    crop = options.get('crop', None)
     thumbnail_name = helpers.generate_filename(original, size, crop, options)
     cached = cache.get(thumbnail_name)
 
-    if cached:
+    force = options is not None and 'force' in options and options['force']
+    if not force and cached:
         return cached
 
     thumbnail = Thumbnail(thumbnail_name)
-    if not thumbnail.exists:
+    if force or not thumbnail.exists:
         options = engine.evaluate_options(options)
         size = engine.parse_size(size)
         thumbnail.image = engine.get_thumbnail(original, size, crop, options)
