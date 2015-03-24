@@ -3,7 +3,7 @@ from thumbnails import helpers
 from thumbnails.conf import settings
 from thumbnails.images import SourceFile, Thumbnail
 
-__version__ = '0.1.0c1'
+__version__ = '0.1.0c2'
 
 
 def get_thumbnail(original, size, crop=None, options=None):
