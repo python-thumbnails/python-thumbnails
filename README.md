@@ -21,7 +21,7 @@ pip install python-thumbnails
 ```python
 from thumbnails import get_thumbnail
 
-get_thumbnail('path/to/image.png', '300x300', 'center')
+get_thumbnail('path/to/image.png', '300x300', crop='center')
 ```
 
 ----------------------
