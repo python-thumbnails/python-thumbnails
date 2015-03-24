@@ -3,6 +3,8 @@
 import importlib
 import os
 
+from thumbnails.compat import makedirs
+
 from . import defaults
 
 
@@ -27,7 +29,8 @@ class SettingsWrapper(object):
                 pass
 
         if not os.path.exists(self.THUMBNAIL_PATH):
-            os.mkdir(self.THUMBNAIL_PATH)
+            makedirs(os.path.dirname(self.THUMBNAIL_PATH))
+            makedirs(self.THUMBNAIL_PATH)
 
     def __getattr__(self, key):
         value = self.defaults.get(key, None)
