@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from PIL import Image
+from PIL import Image, ImageFile
 
 from thumbnails.compat import BytesIO
 
@@ -15,6 +15,7 @@ class PillowEngine(BaseThumbnailEngine):
         return Image.open(BytesIO(original.open().read()))
 
     def engine_raw_data(self, image, options):
+        ImageFile.MAXBLOCK = max(ImageFile.MAXBLOCK, int(image.size[0] * image.size[1]))
         pillow_options = {
             'format': 'JPEG',
             'quality': options['quality'],
