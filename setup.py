@@ -1,7 +1,5 @@
 from setuptools import setup, find_packages
 
-import thumbnails
-
 
 def _read_long_description():
     try:
@@ -13,7 +11,7 @@ def _read_long_description():
 
 setup(
     name='python-thumbnails',
-    version=thumbnails.__version__,
+    version='0.1.0',
     url='http://github.com/relekang/python-thumbnails',
     author='Rolf Erik Lekang',
     author_email='me@rolflekang.com',
