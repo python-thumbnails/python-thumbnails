@@ -1,6 +1,7 @@
 0.2.0
 ~~~~~
 
+ - PgmagickEngine
  - WandEngine
 
 0.1.0
