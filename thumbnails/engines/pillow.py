@@ -4,6 +4,7 @@ from PIL import Image, ImageFile
 from thumbnails.compat import BytesIO
 
 from .base import BaseThumbnailEngine
+from thumbnails.errors import ThumbnailError
 
 
 class PillowEngine(BaseThumbnailEngine):
@@ -12,7 +13,12 @@ class PillowEngine(BaseThumbnailEngine):
     """
 
     def engine_load_image(self, original):
-        return Image.open(BytesIO(original.open().read()))
+        image = Image.open(BytesIO(original.open().read()))
+        try:
+            image.load()
+        except (IOError, OSError) as e:
+            raise ThumbnailError('Could not load image', exception=e)
+        return image
 
     def engine_raw_data(self, image, options):
         ImageFile.MAXBLOCK = max(ImageFile.MAXBLOCK, int(image.size[0] * image.size[1]))

@@ -1,3 +1,11 @@
+0.3.0
+~~~~~
+ - Catch IOError and OSError in PillowEngine.engine_load_image and throw ThumbnailError, which
+   will be catched in get_thumbnail if ``THUMBNAIL_DEBUG = False``.
+
+0.2.1
+~~~~~
+
 0.2.0
 ~~~~~
 

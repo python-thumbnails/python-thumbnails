@@ -43,7 +43,7 @@ class EngineTestMixin(object):
         self.assertTrue(mock_create.called)
         self.assertTrue(mock_cleanup.called)
 
-    @mock.patch('thumbnails.engines.BaseThumbnailEngine.create', side_effect=ThumbnailError())
+    @mock.patch('thumbnails.engines.BaseThumbnailEngine.create', side_effect=ThumbnailError(''))
     @mock.patch('thumbnails.engines.BaseThumbnailEngine.cleanup')
     def test_get_thumbnail_fail(self, mock_create, mock_cleanup):
         self.engine.get_thumbnail(self.file, '200', None, None)
@@ -167,6 +167,16 @@ class DummyEngineTestCase(unittest.TestCase):
 class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = PillowEngine
     RAW_DATA_HASH = 'cd63a4ccd85070c76db822ca5ccb11ba59966256'
+
+    @mock.patch('PIL.Image.Image.load', side_effect=IOError)
+    def test_load_with_io_error(self, mock_image_load):
+        with self.assertRaises(ThumbnailError):
+            self.engine.engine_load_image(self.file)
+
+    @mock.patch('PIL.Image.Image.load', side_effect=OSError)
+    def test_load_with_io_error(self, mock_image_load):
+        with self.assertRaises(ThumbnailError):
+            self.engine.engine_load_image(self.file)
 
 
 @unittest.skipIf(not has_installed('wand'), 'Wand not installed')
