@@ -12,6 +12,8 @@ appreciated.
 
 .. autoclass:: thumbnails.engines.PillowEngine
 
+.. autoclass:: thumbnails.engines.PgmagickEngine
+
 .. autoclass:: thumbnails.engines.WandEngine
 
 .. autoclass:: thumbnails.engines.DummyEngine

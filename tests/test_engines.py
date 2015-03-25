@@ -5,7 +5,8 @@ import unittest
 
 from PIL import Image
 
-from thumbnails.engines import BaseThumbnailEngine, DummyEngine, PillowEngine, WandEngine
+from thumbnails.engines import (BaseThumbnailEngine, DummyEngine, PgmagickEngine, PillowEngine,
+                                WandEngine)
 from thumbnails.errors import ThumbnailError
 from thumbnails.images import SourceFile, Thumbnail
 
@@ -28,6 +29,13 @@ class EngineTestMixin(object):
     def tearDown(self):
         os.remove(self.filename)
 
+    def assertSize(self, thumbnail, width, height):
+        self.assertEqual(thumbnail.size[0], width)
+        self.assertEqual(thumbnail.size[1], height)
+
+    def assertRawData(self, raw_data):
+        self.assertEqual(hashlib.sha1(raw_data).hexdigest(), self.RAW_DATA_HASH)
+
     @mock.patch('thumbnails.engines.BaseThumbnailEngine.create')
     @mock.patch('thumbnails.engines.BaseThumbnailEngine.cleanup')
     def test_get_thumbnail(self, mock_create, mock_cleanup):
@@ -44,30 +52,26 @@ class EngineTestMixin(object):
 
     def test_create_from_file(self):
         thumbnail = self.engine.create(self.file, (200, 300), None)
-        self.assertEqual(thumbnail.size[0], 200)
-        self.assertEqual(thumbnail.size[1], 300)
+        self.assertSize(thumbnail, 200, 300)
 
     def test_create_from_url(self):
         thumbnail = self.engine.create(self.url, (200, 300), None)
-        self.assertEqual(thumbnail.size[0], 200)
-        self.assertEqual(thumbnail.size[1], 300)
+        self.assertSize(thumbnail, 200, 300)
 
     def test_create_with_crop(self):
         thumbnail = self.engine.create(self.url, (200, 200), 'center')
-        self.assertEqual(thumbnail.size[0], 200)
-        self.assertEqual(thumbnail.size[1], 200)
+        self.assertSize(thumbnail, 200, 200)
 
     def test_no_scale_no_crop(self):
         thumbnail = self.engine.create(self.url, (400, 600), None)
-        self.assertEqual(thumbnail.size[0], 400)
-        self.assertEqual(thumbnail.size[1], 600)
+        self.assertSize(thumbnail, 400, 600)
 
     def test_raw_data(self):
         raw_data = self.engine.raw_data(
             self.engine.engine_load_image(self.file),
             self.engine.default_options()
         )
-        self.assertEqual(hashlib.sha1(raw_data).hexdigest(), self.RAW_DATA_HASH)
+        self.assertRawData(raw_data)
 
     def test_cleanup(self):
         self.assertIsNone(self.engine.cleanup(self.file))
@@ -169,3 +173,14 @@ class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
 class WandEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = WandEngine
     RAW_DATA_HASH = '8eb021308a7fb04cb0e87ce9026828f42e8a4a81'
+
+
+@unittest.skipIf(not has_installed('pgmagick'), 'pgmagick not installed')
+class PgmagickEngineTestCase(EngineTestMixin, unittest.TestCase):
+    ENGINE = PgmagickEngine
+    RAW_DATA_HASH = '47be661ff0e19f6e78eaa38b68db74d10f3f4c96'
+
+    def assertSize(self, thumbnail, width, height):
+        geometry = thumbnail.size()
+        self.assertEqual(geometry.width(), width)
+        self.assertEqual(geometry.height(), height)
