@@ -3,6 +3,7 @@
 
  - PgmagickEngine
  - WandEngine
+ - Higher maxblock in PillowEngine.engine_raw_data
 
 0.1.0
 ~~~~~

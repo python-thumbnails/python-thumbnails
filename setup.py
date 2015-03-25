@@ -11,13 +11,12 @@ def _read_long_description():
 
 setup(
     name='python-thumbnails',
-    version='0.1.0',
+    version='0.2.0',
     url='http://github.com/relekang/python-thumbnails',
     author='Rolf Erik Lekang',
     author_email='me@rolflekang.com',
     description='Thumbnails for Django, Flask and other Python projects.',
     long_description=_read_long_description(),
-    py_modules=['thumbnails'],
     packages=find_packages(exclude='tests'),
     license='MIT',
     install_requires=[
