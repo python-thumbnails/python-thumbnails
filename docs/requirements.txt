@@ -3,5 +3,4 @@ sphinx_rtd_theme
 django
 pillow
 wand
-pgmagick
 requests
