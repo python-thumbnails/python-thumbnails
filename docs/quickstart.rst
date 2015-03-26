@@ -38,9 +38,9 @@ environment variable ``THUMBNAILS_SETTINGS_MODULE``.
 Django projects
 ~~~~~~~~~~~~~~~
 
-The django configuration will be loaded if the environment variable
-``DJANGO_SETTINGS_MODULE`` is set. The settings defined in the django
-configuration will overwrite the settings from ``THUMBNAILS_SETTINGS_MODULE``.
+In most cases there is not necessary to configure anything else than the django settings.
+The django settings will be loaded if the environment variable ``DJANGO_SETTINGS_MODULE`` is
+set, which is required by django.
 
 
 Flask projects
