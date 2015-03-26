@@ -2,9 +2,9 @@
 from PIL import Image, ImageFile
 
 from thumbnails.compat import BytesIO
+from thumbnails.errors import ThumbnailError
 
 from .base import BaseThumbnailEngine
-from thumbnails.errors import ThumbnailError
 
 
 class PillowEngine(BaseThumbnailEngine):

@@ -174,7 +174,7 @@ class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
             self.engine.engine_load_image(self.file)
 
     @mock.patch('PIL.Image.Image.load', side_effect=OSError)
-    def test_load_with_io_error(self, mock_image_load):
+    def test_load_with_os_error(self, mock_image_load):
         with self.assertRaises(ThumbnailError):
             self.engine.engine_load_image(self.file)
 
