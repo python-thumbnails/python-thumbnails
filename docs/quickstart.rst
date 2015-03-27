@@ -38,9 +38,18 @@ environment variable ``THUMBNAILS_SETTINGS_MODULE``.
 Django projects
 ~~~~~~~~~~~~~~~
 
-In most cases there is not necessary to configure anything else than the django settings.
-The django settings will be loaded if the environment variable ``DJANGO_SETTINGS_MODULE`` is
-set, which is required by django.
+This project integrates with Django without any specific configuration, put your thumbnails settings
+within your Django settings and you should be good to go. However, if you want to use the
+templatetag it is necessary to add ``thumbnails`` to installed apps:
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # your other apps
+
+        'thumbnails',
+    )
+
 
 
 Flask projects

@@ -1,5 +1,6 @@
 0.3.0
 ~~~~~
+ - Add Django templatetag ``get_thumbnail``
  - Catch IOError and OSError in PillowEngine.engine_load_image and throw ThumbnailError, which
    will be catched in get_thumbnail if ``THUMBNAIL_DEBUG = False``.
 

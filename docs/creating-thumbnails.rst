@@ -7,3 +7,24 @@ called. Other options can be passed as keyword arguments. The available options 
 
 
 .. autofunction:: thumbnails.get_thumbnail
+
+
+Django specific features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Templatetags
+^^^^^^^^^^^^
+
+**get_thumbnail**
+
+This templatetag is a shortcut for ``thumbnails.get_thumbnail``, thus all arguments and keyword
+arguments are the same as described in the section above. It is necessary to define the variable
+name for the thumbnail with an ``as`` keyword as shown in the example below.
+
+.. code-block:: html+django
+
+    {% load thumbnails %}
+
+    {% get_thumbnail "image.jpg" "400x400" crop="center" as thumbnail %}
+    <img src="{{ thumbnail.url }}" alt="The thumbnail" style="width: {{ thumbnail.width }} />
+
