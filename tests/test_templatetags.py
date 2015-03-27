@@ -11,7 +11,6 @@ except ImportError:
     pass
 
 
-
 @unittest.skipIf(not has_installed('django'), 'Django not installed')
 class TemplateTagTestCase(unittest.TestCase):
 
