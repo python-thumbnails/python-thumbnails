@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import base64
 import os
 
 import requests
+from thumbnails.compat import BytesIO
 
 from thumbnails.conf import settings
 from thumbnails.helpers import get_engine, get_storage_backend
@@ -80,4 +82,6 @@ class SourceFile(object):
     def open(self):
         if self.file.startswith('http'):
             return requests.get(self.file, stream=True).raw
+        elif self.file.startswith(r'data:image/'):
+            return BytesIO(base64.b64decode(self.file.replace('data:image/jpeg;base64,', '')))
         return get_storage_backend().open(self.file)

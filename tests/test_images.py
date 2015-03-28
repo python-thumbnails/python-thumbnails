@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import os
 import unittest
+from PIL import Image
+from thumbnails.compat import BytesIO
 
 from thumbnails.conf import settings
 from thumbnails.images import SourceFile, Thumbnail
 
+from . import data
 from .compat import mock
 from .utils import has_installed
 
@@ -64,3 +68,12 @@ class SourceImageTestCase(unittest.TestCase):
         self.assertEqual(f.file, self.FILE_PATH)
         f = SourceFile(files.ImageFieldFile(field=field, instance=None, name=self.FILE_PATH))
         self.assertEqual(f.file, self.FILE_PATH)
+
+    def test_base64_encoded_string(self):
+        file = SourceFile(data.BASE64_STRING_OF_IMAGE)
+        self.assertEqual(
+            hashlib.sha1(file.open().getvalue()).hexdigest(),
+            '6666212f5302426c845ecb2a2901fae021735f24'
+        )
+        image = Image.open(BytesIO(file.open().read()))
+        self.assertIsNotNone(image.load())

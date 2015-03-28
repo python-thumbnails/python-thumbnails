@@ -10,7 +10,8 @@ def get_thumbnail(original, size, **options):
     Creates or gets an already created thumbnail for the given image with the given size and
     options.
 
-    :param original: File-path or url to the image that you want an thumbnail of.
+    :param original: File-path, url or base64-encoded string of the image that you want an
+                     thumbnail.
     :param size: String with the wanted thumbnail size. On the form: ``200x200``, ``200`` or
                  ``x200``.
 
