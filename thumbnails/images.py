@@ -3,8 +3,8 @@ import base64
 import os
 
 import requests
-from thumbnails.compat import BytesIO
 
+from thumbnails.compat import BytesIO
 from thumbnails.conf import settings
 from thumbnails.helpers import get_engine, get_storage_backend
 

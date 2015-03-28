@@ -2,9 +2,10 @@
 import hashlib
 import os
 import unittest
-from PIL import Image
-from thumbnails.compat import BytesIO
 
+from PIL import Image
+
+from thumbnails.compat import BytesIO
 from thumbnails.conf import settings
 from thumbnails.images import SourceFile, Thumbnail
 

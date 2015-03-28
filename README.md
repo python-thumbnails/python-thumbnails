@@ -2,6 +2,7 @@
 
 Thumbnails for Django, Flask and other Python projects.
 
+[![Documentation Status](https://readthedocs.org/projects/python-thumbnails/badge/?version=latest)](https://readthedocs.org/projects/python-thumbnails/?badge=latest)
 [![Join the chat at https://gitter.im/relekang/python-thumbnails](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/relekang/python-thumbnails?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
