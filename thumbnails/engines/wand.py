@@ -33,3 +33,11 @@ class WandEngine(BaseThumbnailEngine):
     def engine_raw_data(self, image, options):
         image.compression_quality = options['quality']
         return image.make_blob()
+
+    def engine_colormode(self, image, colormode):
+        if colormode == 'RGB':
+            image.type = 'truecolor'
+        elif colormode == 'GRAY':
+            image.type = 'grayscale'
+        return image
+

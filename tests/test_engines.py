@@ -4,6 +4,7 @@ import os
 import unittest
 
 from PIL import Image
+from thumbnails import settings
 
 from thumbnails.engines import (BaseThumbnailEngine, DummyEngine, PgmagickEngine, PillowEngine,
                                 WandEngine)
@@ -76,6 +77,10 @@ class EngineTestMixin(object):
     def test_cleanup(self):
         self.assertIsNone(self.engine.cleanup(self.file))
 
+    def test_engine_colormode(self):
+        image = self.engine.engine_load_image(self.file)
+        self.engine.engine_colormode(image, 'RGB')
+
 
 class BaseEngineTestCase(unittest.TestCase):
 
@@ -141,6 +146,11 @@ class BaseEngineTestCase(unittest.TestCase):
             (150, 150)
         )
 
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.engine_colormode')
+    def test_colormode(self, mock_engine_colormode):
+        self.engine.colormode(None, {'colormode': 'RGB'})
+        mock_engine_colormode.assert_called_once_with(None, 'RGB')
+
 
 class DummyEngineTestCase(unittest.TestCase):
 
@@ -172,11 +182,13 @@ class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
     def test_load_with_io_error(self, mock_image_load):
         with self.assertRaises(ThumbnailError):
             self.engine.engine_load_image(self.file)
+        mock_image_load.assert_called_once()
 
     @mock.patch('PIL.Image.Image.load', side_effect=OSError)
     def test_load_with_os_error(self, mock_image_load):
         with self.assertRaises(ThumbnailError):
             self.engine.engine_load_image(self.file)
+        mock_image_load.assert_called_once()
 
 
 @unittest.skipIf(not has_installed('wand'), 'Wand not installed')

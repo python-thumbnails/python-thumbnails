@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 from base64 import b64decode
 
-from pgmagick import Blob, Geometry, Image
+from pgmagick import Blob, Geometry, Image, ImageType
 
 from .base import BaseThumbnailEngine
 
@@ -43,3 +43,10 @@ class PgmagickEngine(BaseThumbnailEngine):
 
     def engine_cleanup(self, original):
         pass
+
+    def engine_colormode(self, image, colormode):
+        if colormode == 'RGB':
+            image.type(ImageType.TrueColorMatteType)
+        elif colormode == 'GRAY':
+            image.type(ImageType.GrayscaleMatteType)
+        return image

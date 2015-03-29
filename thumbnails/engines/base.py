@@ -121,6 +121,17 @@ class BaseThumbnailEngine(object):
         """
         return self.engine_raw_data(image, options)
 
+    def colormode(self, image, options):
+        """
+        Wrapper for ``engine_colormode``.
+
+        :param image:
+        :param options:
+        :return:
+        """
+        mode = options['colormode']
+        return self.engine_colormode(image, mode)
+
     def _calculate_scaling_factor(self, original_size, size, has_crop):
         factors = []
         if size[0] is not None:
@@ -142,7 +153,8 @@ class BaseThumbnailEngine(object):
     def default_options(self):
         return {
             'scale_up': settings.THUMBNAIL_SCALE_UP,
-            'quality': settings.THUMBNAIL_QUALITY
+            'quality': settings.THUMBNAIL_QUALITY,
+            'colormode': settings.THUMBNAIL_COLORMODE
         }
 
     @staticmethod
@@ -276,6 +288,16 @@ class BaseThumbnailEngine(object):
         Engine specific cleanup, should be implemented by all subclasses.
 
         :param original:
+        :return:
+        """
+        raise NotImplementedError
+
+    def engine_colormode(self, image, colormode):
+        """
+        Sets the correct colormode on the image.
+
+        :param image:
+        :param colormode:
         :return:
         """
         raise NotImplementedError

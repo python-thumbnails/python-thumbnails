@@ -43,3 +43,15 @@ class PillowEngine(BaseThumbnailEngine):
 
     def engine_cleanup(self, original):
         pass
+
+    def engine_colormode(self, image, colormode):
+        if colormode == 'RGB' or colormode == 'RGBA':
+            if image.mode == 'RGBA':
+                return image
+            if image.mode == 'LA':
+                return image.convert('RGBA')
+            return image.convert(colormode)
+
+        if colormode == 'GRAY':
+            return image.convert('L')
+        return image.convert(colormode)
