@@ -11,7 +11,7 @@ def _read_long_description():
 
 setup(
     name='python-thumbnails',
-    version='0.4.0',
+    version='0.4.1',
     url='http://github.com/relekang/python-thumbnails',
     author='Rolf Erik Lekang',
     author_email='me@rolflekang.com',
