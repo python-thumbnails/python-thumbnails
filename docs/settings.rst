@@ -71,6 +71,18 @@ Image options
       an alternative version with the number as a proportions-factor.
     | **Default:** ``[2]``
 
+
+Templatetags and filters
+------------------------
+
+.. attribute:: THUMBNAIL_FILTER_OPTIONS
+    :noindex:
+
+        | The options passed into ``get_thumbnail`` by the Markdown and HTML filter. It can contain
+          all options that is supported by ``get_thumbnails``, however size is required.
+        | **Default:** ``{'size': '500'}``
+
+
 Dummy thumbnails
 ----------------
 

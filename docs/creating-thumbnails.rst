@@ -28,3 +28,46 @@ name for the thumbnail with an ``as`` keyword as shown in the example below.
     {% get_thumbnail "image.jpg" "400x400" crop="center" as thumbnail %}
     <img src="{{ thumbnail.url }}" alt="The thumbnail" style="width: {{ thumbnail.width }} />
 
+
+Filters
+^^^^^^^
+
+.. autofunction:: thumbnails.templatetags.thumbnails.markdown_thumbnails
+
+.. code-block:: html+django
+
+    {% load thumbnails %}
+
+    {{ content|markdown_thumbnails }}
+
+.. autofunction:: thumbnails.templatetags.thumbnails.html_thumbnails
+
+.. code-block:: html+django
+
+    {% load thumbnails %}
+
+    {{ content|html_thumbnails }}
+
+.. autofunction:: thumbnails.templatetags.thumbnails.safe_html_thumbnails
+
+.. code-block:: html+django
+
+    {% load thumbnails %}
+
+    {{ content|safe_html_thumbnails }}
+
+**Creating custom text filters**
+
+It is possible to create custom text filters by utilizing the ``text_filter`` function described
+below.
+
+.. autofunction:: thumbnails.templatetags.thumbnails.text_filter
+
+Below is the code for the ``html_thumbnails``-filter shown as an example of how to use
+``text_filter``.
+
+.. code-block:: python
+
+    @register.filter
+    def html_thumbnails(value):
+        return mark_safe(text_filter('<img(?: alt="(%(caption)s)?")? src="(%(image)s)"', value))

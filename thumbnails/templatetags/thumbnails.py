@@ -6,6 +6,9 @@ import re
 from django import template
 from django.template import Library
 from django.template.base import TemplateSyntaxError
+from django.utils.safestring import mark_safe
+
+from thumbnails import settings
 
 register = Library()
 
@@ -49,3 +52,55 @@ class ThumbnailNode(template.Node):
             raise TemplateSyntaxError()
 
         return ''
+
+
+def text_filter(regex_base, value):
+    """
+    A text-filter helper, used in ``markdown_thumbnails``-filter and ``html_thumbnails``-filter.
+    It can be used to build custom thumbnail text-filters.
+
+    :param regex_base: A string with a regex that contains ``%(captions)s`` and ``%(image)s`` where
+                       the caption and image should be.
+    :param value: String of text in which the source URLs can be found.
+    :return: A string ready to be put in a template.
+    """
+    from thumbnails import get_thumbnail
+    regex = regex_base % {
+        'caption': '[a-zA-Z0-9\.\,:;/_ \(\)\-\!\?\"]+',
+        'image': '[a-zA-Z0-9\.:/_\-\% ]+'
+    }
+    images = re.findall(regex, value)
+
+    for i in images:
+        image_url = i[1]
+        image = get_thumbnail(
+            image_url,
+            **settings.THUMBNAIL_FILTER_OPTIONS
+        )
+        value = value.replace(i[1], image.url)
+
+    return value
+
+
+@register.filter
+def markdown_thumbnails(value):
+    """
+    Markdown filter that replaces all images with thumbnails.
+    """
+    return text_filter('!\[(%(caption)s)?\][ ]?\((%(image)s)\)', value)
+
+
+@register.filter
+def safe_html_thumbnails(value):
+    """
+    HTML filter that replaces all images with thumbnails, the returned string is not marked as safe.
+    """
+    return text_filter('<img(?: alt="(%(caption)s)?")? src="(%(image)s)"', value)
+
+
+@register.filter
+def html_thumbnails(value):
+    """
+    HTML filter that replaces all images with thumbnails, the returned string is marked as safe.
+    """
+    return mark_safe(text_filter('<img(?: alt="(%(caption)s)?")? src="(%(image)s)"', value))
