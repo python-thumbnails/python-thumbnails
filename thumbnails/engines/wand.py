@@ -40,4 +40,3 @@ class WandEngine(BaseThumbnailEngine):
         elif colormode == 'GRAY':
             image.type = 'grayscale'
         return image
-

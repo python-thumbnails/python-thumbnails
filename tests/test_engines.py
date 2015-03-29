@@ -4,7 +4,6 @@ import os
 import unittest
 
 from PIL import Image
-from thumbnails import settings
 
 from thumbnails.engines import (BaseThumbnailEngine, DummyEngine, PgmagickEngine, PillowEngine,
                                 WandEngine)
