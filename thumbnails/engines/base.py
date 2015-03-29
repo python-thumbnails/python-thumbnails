@@ -57,6 +57,7 @@ class BaseThumbnailEngine(object):
         image = self.scale(image, size, crop, options)
         crop = self.parse_crop(crop, self.get_image_size(image), size)
         image = self.crop(image, size, crop, options)
+        image = self.colormode(image, options)
         return image
 
     def scale(self, image, size, crop, options):
