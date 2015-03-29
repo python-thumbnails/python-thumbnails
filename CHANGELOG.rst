@@ -1,3 +1,9 @@
+0.4.0
+~~~~~
+ - Add support for base64 encoded images as source
+ - Add support for colormode through setting the option ``colormode`` or the setting
+   ``THUMBNAIL_COLORMODE``.
+
 0.3.0
 ~~~~~
  - Add Django templatetag ``get_thumbnail``
