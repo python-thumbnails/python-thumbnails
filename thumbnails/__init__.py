@@ -21,6 +21,10 @@ def get_thumbnail(original, size, **options):
                     saving the thumbnail.
     :param scale_up: Overrides ``THUMBNAIL_SCALE_UP``, if set to ``True`` the image will be scaled
                      up if necessary.
+    :param colormode: Overrides ``THUMBNAIL_COLORMODE``, The default colormode for thumbnails.
+                      Supports all values supported by pillow. In other engines there is a best
+                      effort translation from pillow modes to the modes supported by the current
+                      engine.
     :return: A Thumbnail object
     """
     engine = helpers.get_engine()

@@ -56,6 +56,14 @@ Image options
     | Quality sent to the engine. 
     | **Default:** ``90``
 
+.. attribute:: THUMBNAIL_COLORMODE
+    :noindex:
+
+    | The default colormode for thumbnails. Supports all values supported by pillow. In other
+      engines there is a best effort translation from pillow modes to the modes supported by the
+      current engine.
+    | **Default:** ``'RGB'``
+
 .. attribute:: THUMBNAIL_ALTERNATIVE_RESOLUTIONS
     :noindex:
 
