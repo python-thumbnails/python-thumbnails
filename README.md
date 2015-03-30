@@ -5,12 +5,6 @@ Thumbnails for Django, Flask and other Python projects.
 [![Documentation Status](https://readthedocs.org/projects/python-thumbnails/badge/?version=latest)](https://readthedocs.org/projects/python-thumbnails/?badge=latest)
 [![Join the chat at https://gitter.im/relekang/python-thumbnails](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/relekang/python-thumbnails?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-
-## Work in progress
-This project is currently work in progress. It is not production ready.
-[This gist](https://gist.github.com/relekang/1544815ce1370a0be2b4) outlines the planned features
-and the status of them.
-
 ## Install
 ```bash
 pip install pillow  # default image engine, not necessary if another engine is used
