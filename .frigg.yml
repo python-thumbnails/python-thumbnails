@@ -1,8 +1,6 @@
 tasks:
  - tox -e py34-pillow
  - tox -e py27-pillow
- - tox -e py34-pgmagick
- - tox -e py27-pgmagick
  - tox -e py34-django17
  - tox -e py27-django17
  - tox -e py34-django18
