@@ -1,0 +1,11 @@
+# Requirements - copy of install_requires in setup.py
+six==1.9.0
+requests==2.6.0
+
+# Dev requirements
+pillow==2.7.0
+
+# Test requirements
+pytest
+coverage
+mock

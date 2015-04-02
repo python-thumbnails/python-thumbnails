@@ -20,8 +20,8 @@ setup(
     packages=find_packages(exclude='tests'),
     license='MIT',
     install_requires=[
-        'six',
-        'requests'
+        'six==1.9.0',
+        'requests==2.6.0'
     ],
     include_package_data=True,
     classifiers=[
