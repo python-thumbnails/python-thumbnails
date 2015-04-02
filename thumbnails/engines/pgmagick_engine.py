@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
 from base64 import b64decode
 
 from pgmagick import Blob, Geometry, Image, ImageType
@@ -10,7 +8,7 @@ from .base import BaseThumbnailEngine
 
 class PgmagickEngine(BaseThumbnailEngine):
     """
-    Image backend for pgmagick, requires the pgpmagick package.
+    Image backend for pgmagick, requires the pgmagick package.
     """
 
     def engine_load_image(self, original):
@@ -61,4 +59,3 @@ class PgmagickEngine(BaseThumbnailEngine):
         if _format == 'CompuServe graphics interchange format':
             return 'GIF'
         return _format
-

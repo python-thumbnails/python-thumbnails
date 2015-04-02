@@ -23,7 +23,7 @@ engine.
 
 .. code-block:: python
 
-    @unittest.skipIf(not has_pillow(), 'Pillow not installed')
+    @unittest.skipIf(not has_installed('pillow'), 'Pillow not installed')
     class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
         ENGINE = PillowEngine
 

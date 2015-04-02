@@ -12,6 +12,11 @@ def has_installed(dependency):
         return False
 
 
+def is_tox_env(env):
+    if 'VIRTUAL_ENV' in os.environ:
+        return env in os.environ['VIRTUAL_ENV']
+
+
 def has_django():
     return has_installed('django')
 

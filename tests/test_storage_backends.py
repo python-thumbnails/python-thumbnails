@@ -3,7 +3,7 @@ import os
 import shutil
 import unittest
 
-from tests.utils import has_django
+from tests.utils import has_installed
 from thumbnails.storage_backends import (BaseStorageBackend, DjangoStorageBackend,
                                          FilesystemStorageBackend)
 
@@ -43,6 +43,6 @@ class FilesystemStorageBackendTestCase(StorageBackendTestMixin, unittest.TestCas
         os.path.exists(instance.location)
 
 
-@unittest.skipIf(not has_django(), 'Django not installed')
+@unittest.skipIf(not has_installed('django'), 'Django not installed')
 class DjangoStorageBackendTestCase(StorageBackendTestMixin, unittest.TestCase):
     BACKEND = DjangoStorageBackend

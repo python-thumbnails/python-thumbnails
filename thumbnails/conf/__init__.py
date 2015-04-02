@@ -1,4 +1,2 @@
 # -*- coding: utf-8 -*-
-from . import wrapper
-
-settings = wrapper.SettingsWrapper()
+from thumbnails.conf.wrapper import settings  # noqa

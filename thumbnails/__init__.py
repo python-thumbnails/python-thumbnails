@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from thumbnails import helpers
 from thumbnails.conf import settings
 from thumbnails.engines import DummyEngine
+from thumbnails.helpers import get_engine, generate_filename, get_cache_backend
 from thumbnails.images import SourceFile, Thumbnail
 
 
@@ -29,11 +29,11 @@ def get_thumbnail(original, size, **options):
                    detected file type as well as the one specified in ``THUMBNAIL_FALLBACK_FORMAT``.
     :return: A Thumbnail object
     """
-    engine = helpers.get_engine()
-    cache = helpers.get_cache_backend()
+    engine = get_engine()
+    cache = get_cache_backend()
     original = SourceFile(original)
     crop = options.get('crop', None)
-    thumbnail_name = helpers.generate_filename(original, size, crop, options)
+    thumbnail_name = generate_filename(original, size, crop, options)
 
     if settings.THUMBNAIL_DUMMY:
         engine = DummyEngine()

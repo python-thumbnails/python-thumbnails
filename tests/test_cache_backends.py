@@ -6,7 +6,7 @@ from thumbnails.cache_backends import (BaseCacheBackend, DjangoCacheBackend, Red
 from thumbnails.images import Thumbnail
 
 from .compat import mock
-from .utils import has_django, has_redis
+from .utils import has_installed
 
 
 class CacheBackendTestMixin(object):
@@ -48,12 +48,12 @@ class SimpleCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
     BACKEND = SimpleCacheBackend
 
 
-@unittest.skipIf(not has_django(), 'Django is not installed')
+@unittest.skipIf(not has_installed('django'), 'Django is not installed')
 class DjangoCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
     BACKEND = DjangoCacheBackend
 
 
-@unittest.skipIf(not has_redis(), 'Redis not installed')
+@unittest.skipIf(not has_installed('redis'), 'Redis not installed')
 class RedisCacheBackendTestCase(CacheBackendTestMixin, unittest.TestCase):
     BACKEND = RedisCacheBackend
 

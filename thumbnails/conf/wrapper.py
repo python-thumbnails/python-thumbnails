@@ -53,3 +53,5 @@ class SettingsWrapper(object):
         for setting in dir(_module):
             if not setting.startswith('_'):
                 target[setting] = getattr(_module, setting)
+
+settings = SettingsWrapper()

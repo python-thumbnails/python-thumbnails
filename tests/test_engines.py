@@ -11,7 +11,7 @@ from thumbnails.errors import ThumbnailError
 from thumbnails.images import SourceFile, Thumbnail
 
 from .compat import mock
-from .utils import has_installed
+from .utils import is_tox_env
 
 
 class EngineTestMixin(object):
@@ -193,7 +193,7 @@ class DummyEngineTestCase(unittest.TestCase):
         self.assertEqual(thumbnail.url, 'http://puppies.lkng.me/200x300')
 
 
-@unittest.skipIf(not has_installed('PIL'), 'Pillow not installed')
+@unittest.skipIf(not is_tox_env('pillow'), 'not pillow environment')
 class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = PillowEngine
     RAW_DATA_HASH = 'cd63a4ccd85070c76db822ca5ccb11ba59966256'
@@ -211,13 +211,13 @@ class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
         mock_image_load.assert_called_once()
 
 
-@unittest.skipIf(not has_installed('wand.image'), 'Wand not installed')
+@unittest.skipIf(not is_tox_env('wand'), 'not wand environment')
 class WandEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = WandEngine
     RAW_DATA_HASH = '8eb021308a7fb04cb0e87ce9026828f42e8a4a81'
 
 
-@unittest.skipIf(not has_installed('pgmagick'), 'pgmagick not installed')
+@unittest.skipIf(not is_tox_env('pgmagick'), 'not pgmagick environment')
 class PgmagickEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = PgmagickEngine
     RAW_DATA_HASH = '47be661ff0e19f6e78eaa38b68db74d10f3f4c96'
