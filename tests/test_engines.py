@@ -190,7 +190,7 @@ class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
         mock_image_load.assert_called_once()
 
 
-@unittest.skipIf(not has_installed('wand'), 'Wand not installed')
+@unittest.skipIf(not has_installed('wand.image'), 'Wand not installed')
 class WandEngineTestCase(EngineTestMixin, unittest.TestCase):
     ENGINE = WandEngine
     RAW_DATA_HASH = '8eb021308a7fb04cb0e87ce9026828f42e8a4a81'
