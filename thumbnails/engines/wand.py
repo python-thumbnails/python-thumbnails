@@ -41,3 +41,6 @@ class WandEngine(BaseThumbnailEngine):
         elif colormode == 'GRAY':
             image.type = 'grayscale'
         return image
+
+    def engine_get_format(self, image):
+        return image.format

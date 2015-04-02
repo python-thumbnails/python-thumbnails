@@ -161,6 +161,9 @@ class BaseThumbnailEngine(object):
     def get_format(self, image, options):
         if 'format' in options:
             return options['format']
+        image_format = self.engine_get_format(image)
+        if image_format:
+            return image_format
         return settings.THUMBNAIL_FALLBACK_FORMAT
 
     @staticmethod
@@ -305,5 +308,14 @@ class BaseThumbnailEngine(object):
         :param image:
         :param colormode:
         :return:
+        """
+        raise NotImplementedError
+
+    def engine_get_format(self, image):
+        """
+        Reads the format of the image object passed into the arguments.
+
+        :param image: An image object from the engine.
+        :return: A string with the current format of the image.
         """
         raise NotImplementedError

@@ -55,3 +55,6 @@ class PillowEngine(BaseThumbnailEngine):
         if colormode == 'GRAY':
             return image.convert('L')
         return image.convert(colormode)
+
+    def engine_get_format(self, image):
+        return image.format

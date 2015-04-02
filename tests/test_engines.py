@@ -80,6 +80,22 @@ class EngineTestMixin(object):
         image = self.engine.engine_load_image(self.file)
         self.engine.engine_colormode(image, 'RGB')
 
+    def test_engine_get_format(self):
+        image = self.engine.engine_load_image(self.file)
+        self.assertEqual(self.engine.engine_get_format(image), 'JPEG')
+
+        png_path = os.path.join(os.path.dirname(__file__), 'test_image.png')
+        Image.new('L', (400, 600)).save(png_path)
+        image = self.engine.engine_load_image(SourceFile(png_path))
+        self.assertEqual(self.engine.engine_get_format(image), 'PNG')
+        os.remove(png_path)
+
+        png_path = os.path.join(os.path.dirname(__file__), 'test_image.gif')
+        Image.new('L', (400, 600)).save(png_path)
+        image = self.engine.engine_load_image(SourceFile(png_path))
+        self.assertEqual(self.engine.engine_get_format(image), 'GIF')
+        os.remove(png_path)
+
 
 class BaseEngineTestCase(unittest.TestCase):
 
@@ -149,6 +165,11 @@ class BaseEngineTestCase(unittest.TestCase):
     def test_colormode(self, mock_engine_colormode):
         self.engine.colormode(None, {'colormode': 'RGB'})
         mock_engine_colormode.assert_called_once_with(None, 'RGB')
+
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.engine_get_format', lambda *x: None)
+    def test_get_format(self):
+            self.assertEqual(self.engine.get_format(None, {}), 'JPEG')
+            self.assertEqual(self.engine.get_format(None, {'format': 'WEBP'}), 'WEBP')
 
 
 class DummyEngineTestCase(unittest.TestCase):

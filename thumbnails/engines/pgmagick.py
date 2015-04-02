@@ -50,3 +50,15 @@ class PgmagickEngine(BaseThumbnailEngine):
         elif colormode == 'GRAY':
             image.type(ImageType.GrayscaleMatteType)
         return image
+
+    def engine_get_format(self, image):
+        _format = image.format()
+        # pgmagick in python 2.7 gives full length formats instead of abbrevations
+        if _format == 'Joint Photographic Experts Group JFIF format':
+            return 'JPEG'
+        if _format == 'Portable Network Graphics':
+            return 'PNG'
+        if _format == 'CompuServe graphics interchange format':
+            return 'GIF'
+        return _format
+
