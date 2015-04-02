@@ -19,7 +19,7 @@ class PgmagickEngine(BaseThumbnailEngine):
         return Image(blob)
 
     def engine_raw_data(self, image, options):
-        image.magick('JPEG')
+        image.magick(self.get_format(image, options))
         image.quality(options['quality'])
         blob = Blob()
         image.write(blob)

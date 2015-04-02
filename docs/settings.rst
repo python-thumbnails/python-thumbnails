@@ -64,6 +64,13 @@ Image options
       current engine.
     | **Default:** ``'RGB'``
 
+.. attribute:: THUMBNAIL_FALLBACK_FORMAT
+    :noindex:
+
+    | If the engine is not able to detect file type from the source or the file type is not
+      supported this format will be used.
+    | **Defaults:** ``'JPEG'``
+
 .. attribute:: THUMBNAIL_ALTERNATIVE_RESOLUTIONS
     :noindex:
 

@@ -158,6 +158,11 @@ class BaseThumbnailEngine(object):
             'colormode': settings.THUMBNAIL_COLORMODE
         }
 
+    def get_format(self, image, options):
+        if 'format' in options:
+            return options['format']
+        return settings.THUMBNAIL_FALLBACK_FORMAT
+
     @staticmethod
     def parse_size(size):
         """

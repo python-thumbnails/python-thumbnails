@@ -25,6 +25,8 @@ def get_thumbnail(original, size, **options):
                       Supports all values supported by pillow. In other engines there is a best
                       effort translation from pillow modes to the modes supported by the current
                       engine.
+    :param format: Overrides the format the thumbnail will be saved in. This will override both the
+                   detected file type as well as the one specified in ``THUMBNAIL_FALLBACK_FORMAT``.
     :return: A Thumbnail object
     """
     engine = helpers.get_engine()

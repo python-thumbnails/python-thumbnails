@@ -23,7 +23,7 @@ class PillowEngine(BaseThumbnailEngine):
     def engine_raw_data(self, image, options):
         ImageFile.MAXBLOCK = max(ImageFile.MAXBLOCK, int(image.size[0] * image.size[1]))
         pillow_options = {
-            'format': 'JPEG',
+            'format': self.get_format(image, options),
             'quality': options['quality'],
         }
         _file = BytesIO()
