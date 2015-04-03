@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from tests import data
 import thumbnails
+from tests import data
 from thumbnails.conf import settings
 
 URL = 'https://unsplash.imgix.net/photo-1422405153578-4bd676b19036?q=75&fm=jpg&' \

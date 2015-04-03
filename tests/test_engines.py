@@ -42,7 +42,8 @@ class EngineTestMixin(object):
         self.assertTrue(mock_create.called)
         self.assertTrue(mock_cleanup.called)
 
-    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.create', side_effect=ThumbnailError(''))
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.create',
+                side_effect=ThumbnailError(''))
     @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.cleanup')
     def test_get_thumbnail_fail(self, mock_create, mock_cleanup):
         self.engine.get_thumbnail(self.file, '200', None, None)
