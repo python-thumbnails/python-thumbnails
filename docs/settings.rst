@@ -71,6 +71,13 @@ Image options
       supported this format will be used.
     | **Defaults:** ``'JPEG'``
 
+.. attribute:: THUMBNAIL_FALLBACK_FORMAT
+    :noindex:
+
+    | This will override the original image format, however, passing format into ``get_thumbnail``
+      will override this value.
+    | **Defaults:** ``None``
+
 .. attribute:: THUMBNAIL_ALTERNATIVE_RESOLUTIONS
     :noindex:
 

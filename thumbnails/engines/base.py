@@ -161,6 +161,8 @@ class BaseThumbnailEngine(object):
     def get_format(self, image, options):
         if 'format' in options:
             return options['format']
+        if settings.THUMBNAIL_FORCE_FORMAT is not None:
+            return settings.THUMBNAIL_FORCE_FORMAT
         image_format = self.engine_get_format(image)
         if image_format:
             return image_format
