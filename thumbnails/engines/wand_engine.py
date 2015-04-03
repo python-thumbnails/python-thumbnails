@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from wand.image import Image
 
 from .base import BaseThumbnailEngine
 
@@ -8,12 +7,16 @@ class WandEngine(BaseThumbnailEngine):
     """
     Image engine for wand.
     """
+    def __init__(self):
+        super(WandEngine, self).__init__()
+        from wand.image import Image
+        self._Image = Image
 
     def engine_image_size(self, image):
         return image.size
 
     def engine_load_image(self, original):
-        return Image(blob=original.open().read())
+        return self._Image(blob=original.open().read())
 
     def engine_scale(self, image, width, height):
         image.resize(width, height)

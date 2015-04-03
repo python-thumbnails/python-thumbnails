@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from PIL import Image, ImageFile
 
 from thumbnails.compat import BytesIO
 from thumbnails.errors import ThumbnailError
@@ -12,8 +11,14 @@ class PillowEngine(BaseThumbnailEngine):
     Thumbnail engine for Pillow
     """
 
+    def __init__(self):
+        super(PillowEngine, self).__init__()
+        from PIL import Image, ImageFile
+        self._Image = Image
+        self._ImageFile = ImageFile
+
     def engine_load_image(self, original):
-        image = Image.open(BytesIO(original.open().read()))
+        image = self._Image.open(BytesIO(original.open().read()))
         try:
             image.load()
         except (IOError, OSError) as e:
@@ -21,7 +26,7 @@ class PillowEngine(BaseThumbnailEngine):
         return image
 
     def engine_raw_data(self, image, options):
-        ImageFile.MAXBLOCK = max(ImageFile.MAXBLOCK, int(image.size[0] * image.size[1]))
+        self._ImageFile.MAXBLOCK = max(self._ImageFile.MAXBLOCK, int(image.size[0] * image.size[1]))
         pillow_options = {
             'format': self.get_format(image, options),
             'quality': options['quality'],
@@ -34,7 +39,7 @@ class PillowEngine(BaseThumbnailEngine):
         return image.size
 
     def engine_scale(self, image, width, height):
-        return image.resize((width, height), resample=Image.ANTIALIAS)
+        return image.resize((width, height), resample=self._Image.ANTIALIAS)
 
     def engine_crop(self, image, size, crop, options):
         x, y = crop

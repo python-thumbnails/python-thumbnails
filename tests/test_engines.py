@@ -5,8 +5,8 @@ import unittest
 
 from PIL import Image
 
-from thumbnails.engines import (BaseThumbnailEngine, DummyEngine, PgmagickEngine, PillowEngine,
-                                WandEngine)
+from thumbnails.engines import DummyEngine, PgmagickEngine, PillowEngine, WandEngine
+from thumbnails.engines.base import BaseThumbnailEngine
 from thumbnails.errors import ThumbnailError
 from thumbnails.images import SourceFile, Thumbnail
 
@@ -17,8 +17,7 @@ from .utils import is_tox_env
 class EngineTestMixin(object):
 
     def setUp(self):
-        if self.ENGINE:
-            self.engine = self.ENGINE()
+        self.engine = self.ENGINE()
         self.filename = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
         self.file = SourceFile(self.filename)
         self.url = SourceFile('http://puppies.lkng.me/400x600/')
@@ -36,15 +35,15 @@ class EngineTestMixin(object):
     def assertRawData(self, raw_data):
         self.assertEqual(hashlib.sha1(raw_data).hexdigest(), self.RAW_DATA_HASH)
 
-    @mock.patch('thumbnails.engines.BaseThumbnailEngine.create')
-    @mock.patch('thumbnails.engines.BaseThumbnailEngine.cleanup')
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.create')
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.cleanup')
     def test_get_thumbnail(self, mock_create, mock_cleanup):
         self.engine.get_thumbnail(self.file, '200', None, None)
         self.assertTrue(mock_create.called)
         self.assertTrue(mock_cleanup.called)
 
-    @mock.patch('thumbnails.engines.BaseThumbnailEngine.create', side_effect=ThumbnailError(''))
-    @mock.patch('thumbnails.engines.BaseThumbnailEngine.cleanup')
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.create', side_effect=ThumbnailError(''))
+    @mock.patch('thumbnails.engines.base.BaseThumbnailEngine.cleanup')
     def test_get_thumbnail_fail(self, mock_create, mock_cleanup):
         self.engine.get_thumbnail(self.file, '200', None, None)
         self.assertTrue(mock_create.called)
