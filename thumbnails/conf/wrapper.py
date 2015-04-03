@@ -33,18 +33,18 @@ class SettingsWrapper(object):
             makedirs(self.THUMBNAIL_PATH, exist_ok=True)
 
     def __getattr__(self, key):
-        value = self.defaults.get(key, None)
+        value = self.defaults.get(key, 'unknown setting')
 
         for settings_module in self.settings_modules:
-            if getattr(settings_module, key, None):
-                value = getattr(settings_module, key, None)
+            if hasattr(settings_module, key):
+                value = getattr(settings_module, key)
 
         if 'overridden_settings' in os.environ:
             settings = json.loads(os.environ['overridden_settings'])
             if key in settings:
                 value = settings[key]
 
-        if value is None:
+        if value == 'unknown setting':
             raise AttributeError('No setting for "{}".'.format(key))
 
         return value
