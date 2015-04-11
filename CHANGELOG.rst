@@ -1,3 +1,15 @@
+Changes since last release
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+ - Add django filters for markdown and html
+ - Tested against release version of Django 1.8
+ - Add ``THUMBNAIL_FORCE_FORMAT``
+ - Add ``THUMBNAIL_FALLBACK_FORMAT``
+ - Change ``THUMBNAIL_DUMMY_URL`` to use keyword arguments in string format
+
+0.4.1
+~~~~~
+ - Add missing call of colormode in engine.create
+
 0.4.0
 ~~~~~
  - Add support for base64 encoded images as source

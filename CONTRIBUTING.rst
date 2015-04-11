@@ -4,6 +4,9 @@ process of including the contributions easier.
 It sums up to write tests, follow pep8 and the import-sorting guidelines. New features
 needs to be documented.
 
+Please remember to add your change to the CHANGELOG.rst under the section
+"Changes since last release".
+
 Adding features
 ~~~~~~~~~~~~~~~
 
