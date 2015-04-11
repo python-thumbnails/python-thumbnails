@@ -20,4 +20,4 @@ THUMBNAIL_FILTER_SIZE = '500'
 THUMBNAIL_FILTER_OPTIONS = {'size': '500'}
 
 THUMBNAIL_DUMMY = False
-THUMBNAIL_DUMMY_URL = 'http://puppies.lkng.me/{}x{}'
+THUMBNAIL_DUMMY_URL = 'http://puppies.lkng.me/{width}x{height}'

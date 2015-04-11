@@ -19,7 +19,7 @@ class DummyEngine(BaseThumbnailEngine):
         return thumbnail
 
     def _get_url(self, size):
-        return settings.THUMBNAIL_DUMMY_URL.format(size[0], size[1])
+        return settings.THUMBNAIL_DUMMY_URL.format(width=size[0], height=size[1])
 
     def cleanup(self, original):
         pass

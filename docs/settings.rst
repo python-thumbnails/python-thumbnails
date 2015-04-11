@@ -119,5 +119,5 @@ Dummy thumbnails
 
     | This is the url that the dummy url is generated from. It should be a
       string that can be used with ``string.format`` and the arguments are width
-      and height, ``THUMBNAIL_DUMMY_URL.format(width, height)``
-    | **Default:** `http://puppies.lkng.me/{}x{}`
+      and height, ``THUMBNAIL_DUMMY_URL.format(width=width, height=height)``
+    | **Default:** `http://puppies.lkng.me/{width}x{height}`
