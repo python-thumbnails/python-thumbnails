@@ -57,3 +57,6 @@ target/
 
 
 thumbnails-cache
+tests/test_image.jpg
+tests/test_image.png
+tests/test_image.gif
