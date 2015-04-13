@@ -16,6 +16,9 @@ tasks:
  - coverage combine && coverage report && coverage xml
  - tox -e py34-docs
 
+services:
+ - redis-server
+
 coverage:
   path: coverage.xml
   parser: python
