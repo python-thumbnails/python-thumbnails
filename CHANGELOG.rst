@@ -1,5 +1,6 @@
 Changes since last release
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+ - Drop support for Python 2
  - Add django filters for markdown and html
  - Tested against release version of Django 1.8
  - Add ``THUMBNAIL_FORCE_FORMAT``

@@ -3,8 +3,6 @@ import importlib
 import json
 import os
 
-from thumbnails.compat import makedirs
-
 from . import defaults
 
 
@@ -29,8 +27,8 @@ class SettingsWrapper(object):
                 pass
 
         if not os.path.exists(self.THUMBNAIL_PATH):
-            makedirs(os.path.dirname(self.THUMBNAIL_PATH), exist_ok=True)
-            makedirs(self.THUMBNAIL_PATH, exist_ok=True)
+            os.makedirs(os.path.dirname(self.THUMBNAIL_PATH), exist_ok=True)
+            os.makedirs(self.THUMBNAIL_PATH, exist_ok=True)
 
     def __getattr__(self, key):
         value = self.defaults.get(key, 'unknown setting')
