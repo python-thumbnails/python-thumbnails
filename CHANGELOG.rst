@@ -1,5 +1,9 @@
 Changes since last release
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+Nothing yet.
+
+0.5.0
+~~~~~
  - Drop support for Python 2
  - Add django filters for markdown and html
  - Tested against release version of Django 1.8
