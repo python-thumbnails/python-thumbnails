@@ -21,7 +21,7 @@ setup(
     license='MIT',
     install_requires=[
         'six==1.9.0',
-        'requests==2.6.2'
+        'requests==2.7.0'
     ],
     include_package_data=True,
     classifiers=[
