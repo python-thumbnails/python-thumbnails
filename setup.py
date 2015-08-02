@@ -1,3 +1,5 @@
+import re
+import sys
 from setuptools import find_packages, setup
 
 
@@ -8,10 +10,22 @@ def _read_long_description():
     except Exception:
         return None
 
+with open('thumbnails/__init__.py', 'r') as fd:
+    version = re.search(
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+        fd.read(),
+        re.MULTILINE
+    ).group(1)
+
+try:
+    from semantic_release import setup_hook
+    setup_hook(sys.argv)
+except ImportError:
+    pass
 
 setup(
     name='python-thumbnails',
-    version='0.5.1',
+    version=version,
     url='http://github.com/relekang/python-thumbnails',
     author='Rolf Erik Lekang',
     author_email='me@rolflekang.com',
