@@ -5,6 +5,8 @@ from thumbnails.engines import DummyEngine
 from thumbnails.helpers import get_engine, generate_filename, get_cache_backend
 from thumbnails.images import SourceFile, Thumbnail
 
+__version__ = '0.5.1'
+
 
 def get_thumbnail(original, size, **options):
     """
