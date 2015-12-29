@@ -1,11 +1,12 @@
 tasks:
  - tox -e flake8
  - tox -e isort
- - tox -e py34-pillow
- - tox -e py34-django17
- - tox -e py34-django18
- - tox -e py34-redis
- - coverage combine && coverage report && coverage xml
+ - tox -e pillow
+ - tox -e django17
+ - tox -e django18
+ - tox -e django19
+ - tox -e redis
+ - tox -e coverage-report
  - tox -e docs
 
 services:
