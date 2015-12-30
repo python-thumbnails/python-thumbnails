@@ -2,7 +2,6 @@ tasks:
  - tox -e flake8
  - tox -e isort
  - tox -e pillow
- - tox -e django17
  - tox -e django18
  - tox -e django19
  - tox -e redis
