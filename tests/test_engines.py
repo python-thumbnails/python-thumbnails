@@ -20,7 +20,7 @@ class EngineTestMixin(object):
         self.engine = self.ENGINE()
         self.filename = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
         self.file = SourceFile(self.filename)
-        self.url = SourceFile('http://puppies.lkng.me/400x600/')
+        self.url = SourceFile('http://dummyimage.com/400x600')
 
         image = Image.new('L', (400, 600))
         image.save(self.filename)
