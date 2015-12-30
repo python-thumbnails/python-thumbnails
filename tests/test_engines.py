@@ -202,13 +202,13 @@ class PillowEngineTestCase(EngineTestMixin, unittest.TestCase):
     def test_load_with_io_error(self, mock_image_load):
         with self.assertRaises(ThumbnailError):
             self.engine.engine_load_image(self.file)
-        mock_image_load.assert_called_once()
+        self.assertTrue(mock_image_load.called)
 
     @mock.patch('PIL.Image.Image.load', side_effect=OSError)
     def test_load_with_os_error(self, mock_image_load):
         with self.assertRaises(ThumbnailError):
             self.engine.engine_load_image(self.file)
-        mock_image_load.assert_called_once()
+        self.assertTrue(mock_image_load.called)
 
 
 @unittest.skipIf(not is_tox_env('wand'), 'not wand environment')
