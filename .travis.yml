@@ -7,6 +7,7 @@ cache:
   apt:
   directories:
     - .tox
+    - .cache
 
 services:
  - redis-server
@@ -17,12 +18,13 @@ before_install:
 
 install:
  - pip install -U pip wheel
- - pip install -q coveralls tox hide-env
+ - pip install -q tox hide-env codecov
 
 script:
  - tox | hide-env GH_TOKEN PYPI_PASSWORD
 
 after_success:
+ - codecov
  - git config --global user.name "semantic-release"
  - git config --global user.email "semantic-release@travis"
  - pip install python-semantic-release
