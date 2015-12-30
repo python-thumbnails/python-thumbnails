@@ -17,16 +17,16 @@ before_install:
 
 install:
  - pip install -U pip wheel
- - pip install -q coveralls tox
+ - pip install -q coveralls tox hide-env
 
 script:
- - tox
+ - tox | hide-env GH_TOKEN PYPI_PASSWORD
 
 after_success:
  - git config --global user.name "semantic-release"
  - git config --global user.email "semantic-release@travis"
  - pip install python-semantic-release
- - semantic-release publish
+ - semantic-release publish | hide-env GH_TOKEN PYPI_PASSWORD
 
 
 
