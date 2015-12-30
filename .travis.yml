@@ -21,6 +21,7 @@ install:
  - pip install -q tox hide-env codecov
 
 script:
+ - set -o pipefail
  - tox | hide-env GH_TOKEN PYPI_PASSWORD
 
 after_success:
