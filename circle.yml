@@ -1,0 +1,27 @@
+machine:
+  pre:
+    - cd /opt/circleci/.pyenv; git pull
+  python:
+    version: 3.5.1
+  services:
+    - redis
+  environment:
+    LANG: C.UTF-8
+
+dependencies:
+  override:
+    - sudo apt-get update; sudo apt-get install -y libgraphicsmagick++1-dev libboost-python-dev libjpeg62 libjpeg62-dev zlib1g-dev
+    - pip install tox
+    - tox --notest
+
+test:
+  override:
+    - tox -e flake8
+    - tox -e isort
+    - tox -e pillow
+    - tox -e django18
+    - tox -e django19
+    - tox -e django110
+    - tox -e redis
+    - tox -e coverage-report
+    - tox -e docs

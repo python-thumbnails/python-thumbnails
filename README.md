@@ -1,4 +1,4 @@
-# python-thumbnails  [![Build status](https://ci.frigg.io/badges/relekang/python-thumbnails/)](https://ci.frigg.io/relekang/python-thumbnails/last/) [![Coverage status](https://ci.frigg.io/badges/coverage/relekang/python-thumbnails/)](https://ci.frigg.io/relekang/python-thumbnails/last/)
+# python-thumbnails [![CircleCI](https://circleci.com/gh/python-thumbnails/python-thumbnails.svg?style=svg&circle-token=4e9cc99497f1c2901ceb06cd716eb124c8c27837)](https://circleci.com/gh/python-thumbnails/python-thumbnails)
 
 Thumbnails for Django, Flask and other Python projects.
 
