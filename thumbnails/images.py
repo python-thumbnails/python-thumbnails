@@ -9,15 +9,21 @@ from thumbnails.conf import settings
 from thumbnails.helpers import get_engine, get_storage_backend
 
 
+def extension_of_format(_format):
+    if _format == "JPEG" or _format == "JPG":
+        return "jpg"
+    return _format.lower()
+
+
 class Thumbnail(object):
     size = None, None
     image = None
     _url = None
     extension = None
 
-    def __init__(self, name, extension):
+    def __init__(self, name, _format):
         self.name = '/'.join(name)
-        self.extension = extension
+        self.extension = extension_of_format(_format)
 
     @property
     def path(self):
